@@ -1,0 +1,610 @@
+\documentclass[11pt,a4paper]{article}
+
+% --- FONT + LANGUAGE ---
+\usepackage{fontspec} % for custom fonts (requires xelatex/lualatex)
+\setmainfont{Kalam} % <-- requires Kalam installed
+\usepackage{graphicx}   % for including images
+\usepackage{float}      % optional: for [H] placement
+
+% --- MATH PACKAGES ---
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{physics}   % nice shorthand like \dv, \pdv
+\usepackage{bm}        % bold math
+
+% --- PAGE & STYLE ---
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{titlesec} % custom section titles
+\usepackage{fancyhdr} % headers/footers
+\usepackage{xcolor}   % colors
+
+% --- HEADER / FOOTER ---
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\textbf{Course Summary}}
+\rhead{\leftmark}
+\cfoot{\thepage}
+
+% --- THEOREM ENVIRONMENTS ---
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{definition}{Definition}
+\newtheorem*{example}{Example}
+\newtheorem*{exercise}{Exercise}
+\newtheorem*{proposition}{Proposition}
+\newtheorem*{corollary}{Corollary}
+
+
+% --- CUSTOM MACROS ---
+\newcommand{\lecture}[2]{
+	\section*{Lecture #1 -- #2}
+	\addcontentsline{toc}{section}{Lecture #1: #2}
+}
+% --- INTERMEZZO (non-lecture sections) ---
+% --- INTERMEZZO SECTIONS (bold, main-level, no lines) ---
+\newcommand{\intermezzo}[2]{
+	\clearpage
+	\section*{Intermezzo #1 -- #2}
+	\addcontentsline{toc}{section}{Intermezzo #1: #2}
+	\vspace{1em}
+}
+
+\newcommand{\solution}[1]{
+	\subsection*{Solution}
+	#1
+}
+\newcommand{\problems}[1]{
+	\subsection*{Problems}
+	#1
+}
+
+% --- DOCUMENT ---
+\begin{document}
+	
+	\begin{center}
+		{\Huge \textbf{Course Summary}} \\[1em]
+		{\Large Advanced Geometry 1 (Algebraic Topology Introduction)} \\[0.5em]
+		{\large Andrew Moyer} \\[2em]
+	\end{center}
+	
+	\tableofcontents
+	\newpage
+	
+	% --- SAMPLE CONTENT ---
+	\lecture{0}{Preliminary Definitions from Munkres Topology Chapter 2}
+	% ============================
+	% --- PRELIMINARY DEFINITIONS
+	% ============================
+	
+	\begin{definition}[Topology]
+		Let $X$ be a set. A \emph{topology} on $X$ is a collection $\mathcal{T}$ of subsets of $X$ (called \emph{open sets}) satisfying:
+		\begin{enumerate}
+			\item $\varnothing, X \in \mathcal{T}$,
+			\item the union of any collection of sets in $\mathcal{T}$ is in $\mathcal{T}$,
+			\item the intersection of any finite collection of sets in $\mathcal{T}$ is in $\mathcal{T}$.
+		\end{enumerate}
+		The pair $(X,\mathcal{T})$ is called a \emph{topological space}.
+	\end{definition}
+	
+	\begin{definition}[Basis of a Topology]
+		A collection $\mathcal{B}$ of subsets of $X$ is a \emph{basis} for a topology on $X$ if:
+		\begin{enumerate}
+			\item for each $x \in X$, there exists $B \in \mathcal{B}$ with $x \in B$,
+			\item if $x \in B_1 \cap B_2$ with $B_1,B_2 \in \mathcal{B}$, then there exists $B_3 \in \mathcal{B}$ such that $x \in B_3 \subseteq B_1 \cap B_2$.
+		\end{enumerate}
+		The topology \emph{generated} by $\mathcal{B}$ is the collection of all unions of elements of $\mathcal{B}$.
+	\end{definition}
+	
+	\begin{definition}[Subspace Topology]
+		Let $(X,\mathcal{T})$ be a topological space and let $Y \subseteq X$. The \emph{subspace topology} on $Y$ is
+		\[
+		\mathcal{T}_Y = \{\,U \cap Y : U \in \mathcal{T}\,\}.
+		\]
+	\end{definition}
+	
+	\begin{definition}[Closed Set]
+		A subset $A \subseteq X$ is called \emph{closed} if its complement $X \setminus A$ is open.
+	\end{definition}
+	
+	\begin{definition}[Topology via Closed Sets]
+		A collection $\mathcal{C}$ of subsets of $X$ is the collection of \emph{closed sets} of a topology on $X$ if:
+		\begin{enumerate}
+			\item $\varnothing, X \in \mathcal{C}$,
+			\item the intersection of any collection of sets in $\mathcal{C}$ is in $\mathcal{C}$,
+			\item the union of any finite collection of sets in $\mathcal{C}$ is in $\mathcal{C}$.
+		\end{enumerate}
+	\end{definition}
+	
+	\begin{definition}[Closure and Interior]
+		Let $A \subseteq X$.
+		\begin{itemize}
+			\item The \emph{closure} of $A$, denoted $\overline{A}$, is the intersection of all closed sets containing $A$.
+			\item The \emph{interior} of $A$, denoted $A^{\circ}$, is the union of all open sets contained in $A$.
+		\end{itemize}
+	\end{definition}
+	
+	\begin{definition}[Hausdorff Space]
+		A topological space $(X,\mathcal{T})$ is called \emph{Hausdorff} (or $T_2$) if for every pair of distinct points $x,y \in X$, there exist disjoint open sets $U,V \in \mathcal{T}$ such that $x \in U$ and $y \in V$.
+	\end{definition}
+	
+	\begin{definition}[Continuous Function]
+		Let $(X,\mathcal{T}_X)$ and $(Y,\mathcal{T}_Y)$ be topological spaces. A function $f : X \to Y$ is \emph{continuous} if any of the following equivalent conditions hold:
+		\begin{enumerate}
+			\item for every open set $V \subseteq Y$, the preimage $f^{-1}(V)$ is open in $X$;
+			\item for every closed set $C \subseteq Y$, the preimage $f^{-1}(C)$ is closed in $X$;
+			\item for every $x \in X$ and every neighborhood $V$ of $f(x)$ in $Y$, there exists a neighborhood $U$ of $x$ in $X$ such that $f(U) \subseteq V$.
+		\end{enumerate}
+	\end{definition}
+	
+	\begin{definition}[Homeomorphism]
+		A function $f : X \to Y$ between topological spaces is a \emph{homeomorphism} if it is bijective, continuous, and its inverse $f^{-1}$ is also continuous.  
+		Two spaces are \emph{homeomorphic} if there exists a homeomorphism between them; they are then considered topologically equivalent.
+	\end{definition}
+	
+	\begin{definition}[Metric]
+		A \emph{metric} on a set $X$ is a function $d : X \times X \to [0,\infty)$ satisfying, for all $x,y,z \in X$:
+		\begin{enumerate}
+			\item $d(x,y) = 0$ iff $x = y$;
+			\item $d(x,y) = d(y,x)$ (symmetry);
+			\item $d(x,z) \le d(x,y) + d(y,z)$ (triangle inequality).
+		\end{enumerate}
+		The pair $(X,d)$ is called a \emph{metric space}.
+	\end{definition}
+	
+	\begin{definition}[Metric Topology]
+		Given a metric space $(X,d)$, the \emph{metric topology} $\mathcal{T}_d$ is the collection of all subsets $U \subseteq X$ such that for every $x \in U$, there exists $\varepsilon > 0$ with the open ball
+		\[
+		B_d(x,\varepsilon) = \{\,y \in X : d(x,y) < \varepsilon\,\} \subseteq U.
+		\]
+	\end{definition}
+	
+	\begin{definition}[Quotient Map and Quotient Topology]
+		Let $X$ and $Y$ be topological spaces and $q : X \to Y$ a surjective map.
+		\begin{enumerate}
+			\item The map $q$ is a \emph{quotient map} if a subset $U \subseteq Y$ is open in $Y$ iff $q^{-1}(U)$ is open in $X$.
+			\item If $q$ is surjective, the \emph{quotient topology} on $Y$ induced by $q$ is defined by
+			\[
+			\mathcal{T}_Y = \{\,U \subseteq Y : q^{-1}(U) \text{ is open in } X\,\}.
+			\]
+		\end{enumerate}
+	\end{definition}
+	
+	\lecture{1}{Introduction to Algebraic Topology}
+	The big question. Given two topological spaces $X,Y$ (likely manifolds), are they homeomorpic? Does there exists $f:X\to Y$ a homeomorphism? To prove this, one must construct a homeomorphism. But to disprove it, we can use topological invariants and show that $X$ and $Y$ are different. We must be able to construct and calculate them. Given a topological space, we can construct maps to number systems, polynomials, groups, vector spaces and so on. If we can prove that these properties are preserved under homeomorphism, we have a topological invariant
+	\newline
+	
+	In the course we will cover simplicial homolgy for polyhedra, singular homology for all topological spaces and cellular homology for CW complexes. At the end we will study cohomology, which is the geometric dual of homology. To begin simplicial homology, we must start with the building blocks called simplices.
+	\begin{definition}
+		Given $X=\{a_{0},...,a_{n}\} \subseteq \mathbb{R}^{n}$, $X$ is said to be geometrically independent if the following equations hold true:
+		\begin{itemize}
+			\item $\sum_{i=0}^{n}t_{i} = 0$
+			\item $\sum_{i=0}^{n}t_{i}a_{i} = 0$
+		\end{itemize}
+		with $t_{i}\in\mathbb{R}$ imply that $t_{1}+t_{2}+...+t_{n} = 0$
+	\end{definition}
+	The set $X$ is just a bunch of points in $\mathbb{R}^{n}$. If we subtract the set from a fixed point then we get a set of linearly independent vectors. 
+	\begin{definition}
+Let $\{a_{0},...,a_{n}\}$ be a set and consider
+$$
+\{x = \sum_{i=0}^{n}t_{i}a_{i}|\sum_{i=0}^{n}t_{1}=1 \text{ and } t_{i}\geq 0\forall i\}
+$$
+This is called an \textit{n simplex} generated by $a_{0},...,a_{n}$
+	\end{definition}
+	One can do a little algebra with a triangle and show that this sweeps out the edges and interior.
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.3\textwidth]{figures/sweep.png}
+		\label{fig:my_diagram}
+	\end{figure}
+	In general it will sweep out the polyhedra and interior of with the geometrically independent set as the vertices.
+	\begin{definition}
+		Let $\sigma$  be an $n$-simplex generated by $a_{0},...,a_{n}$
+\begin{itemize}
+\item $n$ is the dimension of the simplex
+\item The simplex $\{a_{i_{0}},...a_{i_{k}}\}\subseteq\{a_{0},...,a_{k}\}$ is a k dimensional face of $\sigma$
+\end{itemize}
+	\end{definition}
+	Finally, we define a simplicial complex so it glues together in a way that makes sense.
+\begin{definition}
+A simplicial complex $K\subset\mathbb{R}^{n}$ is a set of simplices in $\mathbb{R}^{n}$ such that
+\begin{itemize}
+\item $\sigma\in K$, $\sigma^{\prime}$ a face of $K \Rightarrow \sigma^{\prime}\in K$
+\item $\sigma,\sigma^{\prime}\in K$ and $\sigma\cap\sigma^{\prime}\neq\emptyset \Rightarrow \sigma\cap\sigma^{\prime}$ is a face common to both $\sigma$ and $\sigma^{\prime}$
+\end{itemize}
+\end{definition}
+A few examples:
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{figures/simplicialcomplexex1.png}
+\end{figure}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{figures/simplicialcomplexex2.png}
+	\label{fig:my_diagram}
+\end{figure}
+	\lecture{2}{Topologies of Simplicial Complexes, Free Abelian Groups and Homology Group Introduction}
+	In previous lecture we defined as simplical complex $K$. Now we define a topology on $K$
+	\begin{definition}
+		Let $\displaystyle\bigcup_{\sigma \in K} \sigma$
+		\begin{itemize}
+		\item The topology of each $\sigma$ is induced by the standard topology of $\mathbb{R}^{n}$
+		\item $A\subseteq |K|$ is closed iff $A\cap\sigma$ is closed for all $\sigma\in K$
+		\end{itemize}
+	\end{definition}
+	So each individual $\sigma$ just has the topology from little $\epsilon$-balls in $\mathbb{R}^{n}$ restricted to the subspace $\sigma$. The professor proves that the subset topology of $K$ is coarser than the topology when the number of vertices are infinite. But they are equivalent when the number of vertices are finite ($\mathcal{T}_{1}\subseteq\mathcal{T}_{2}$ and $\mathcal{T}_{2}\subseteq\mathcal{T}_{1}$)
+	Now we review abelian groups.
+	\begin{definition}
+Let G be an abelian group. The set $\{g_{\alpha}\}$ such that every $g\in G$ is
+$$
+g = \sum n_{\alpha}g_{\alpha},  \text{ finitely many nonzero } n_{\alpha}
+$$
+is a generator system of $G$. If the coeffiecents are unique then $\{g_{\alpha}\}$ basis.
+	\end{definition}
+If $G$ has a basis it is called a free abelian group. We can have abelian groups that do not have a basis. The cardinality of the basis is the rank of $\sigma$. These groups are convienent to construct homomorphisms with. We prove a key fact about homomorphsims on these groups in the exercises.
+\begin{theorem}
+Let $G$ be a finitely generated free Abelian Group. We define $T = \{\text{Elements of finite order}\}$ (T is a subroup of G). The following properties hold:
+\begin{itemize}
+\item There exists $H$ a free abelian subroup of $G$ such that $G = 
+T\oplus  H$
+\item There exist some finite cyclic groups $T_{1},...,T_{k}$ with orders $t_{1},...,t_{k}$ respectively such that $T =  T_{1}\oplus...\oplus T_{k}$ and $t_{1}$ divides $t_{2}$, $t_{2}$ divdes $t_{3}$,..., and $t_{k-1}$ divides $t_{k}$ 
+\item rank $H$ and $t_{1},...,t_{k}$ are uniquely determined by $G$ 
+\end{itemize}
+\end{theorem}
+$T$ is the torsion subgroup, $t_{1},...,t_{k}$ are the torsion coefficients of $G$ and rank $H$ is the \textit{Betti Number} of $G$
+In summary, a finitely generated abelian group always decomposes nicely into finite and infinite parts
+$$
+G \cong \mathbb{Z}_{t_{2}}\oplus ... \oplus \mathbb{Z}_{t_{k}}\oplus \mathbb{Z}^{r}
+$$
+Moving on,	now that we have defined a topology on our simplex, we are ready to endow it with a group structure.
+	\newline
+	
+	Let $\sigma$ be a simplex, consider the set $\{\text{Orderings of Vertices}\}$. 
+	\begin{itemize}
+	\item We define an equivalence class and identify two orderings if they differ by an even permutation (even permutations decompose into an even number of transpositions)
+	\item This partitions the set into two equivalence classes
+	\item Each of these classes is called an \textit{orientation} of $\sigma$
+	\item 0-simplexes only have one orientation
+	\end{itemize}
+	\begin{definition}
+		A simplex with a chosen orientation is called a \textit{oriented simplex }
+		\end{definition}
+$[v_{0}, ..., v_{p}]$ denotes the simplex $v_{0}, ..., v_{p}$ with the orientation given by $v_{0}< ...< v_{p}$
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{figures/orientedsimplices.png}
+	\label{fig:my_diagram}
+\end{figure}
+
+		\begin{exercise}
+			Let $K$ be a simplicial complex, prove that the topology of $|K|$
+			which we defined during the lesson is actually a topology.
+		\end{exercise}
+		
+		\solution{
+			Recall the toplogy we defined in class for $|K|$, which was finer than the topology it inherits as a subset of $\mathbb{R}^{n}$. $|K| = \bigcup\limits_{\sigma \in K} \sigma$
+			\newline
+			1) The topology of each simplex $\sigma$ is induced by $\mathbb{R}^{n}$
+			\newline
+			2)$A\subseteq |K|$ is closed iff $A\cap\sigma$ is closed for all $\sigma\in K$
+		}
+		\newline 
+		\newline
+		Let $A$ = $\emptyset$. Then $\{\emptyset\}\cap \sigma = \emptyset\ \forall \sigma\in K$. But $\sigma$ inherits a subspace topology from $\mathbb{R}^{n}$ so $\emptyset$ is closed for all $\sigma \in K$. Now let $A = |K|$. We have $|K|\cap \sigma = \sigma \forall \ \sigma \in K$. Because $\sigma$ inherits the subspace topology, $\sigma$ is closed in $\sigma$ for all sigma.
+		\newline
+		\newline
+		Now we check closure under finite unions. Let $A = \bigcup\limits_{i \in I} A_{i}$ be a union of closed sets. $(|I|\in\mathbb{N})$. Then we have $$\big(\bigcup\limits_{i \in I} A_{i}\big)\cap\sigma=(A_{1}\cap \sigma)\cup...\cup(A_{k}\cap\sigma)$$
+		Because each $A_{i}$ is closed, all $(A_{i}\cap\sigma)$ must be closed by (2). And a finite union of closed sets is closed.
+		\newline
+		\newline
+		Now let $A = \bigcap\limits_{i \in I} A_{i}$ be an intersection of closed sets. Then we have
+		$$\big(\bigcap\limits_{i \in I} A_{i}\big)\cap\sigma = (A_{1}\cap\sigma)\cap...\cap(A_{k}\cap\sigma)\cap...$$
+		Each $(A_{1}\cap\sigma)$is closed by (2). And intersections of closed sets are closed.			\begin{exercise}
+		Prove that the symmetric group $S_{n}$ is generated by transpositions of type $(j,j+ 1)$.
+		\end{exercise}
+		
+		\solution{
+			Recall that $S_{n}$ is the set of all permutations of the set $\{1,...,n\}$. So $\pi\in S_{n}$ maps $\pi:\{1,...,n\}\to\{1,...,n\}$ where the group operation is composition. Let $\pi$ be an arbitrary element of $S_{n}$. We would like to show that 
+			$$
+			\pi \;=\; \Pi_j (j,j+1)^{n_{j}}, \quad \text{where}\ 
+			(j,j+1)^{n_{j}} \;=\; 
+			\underbrace{(j,j+1)\circ (j,j+1)\circ \cdots \circ (j,j+1)}_{n_j \text{ times}}
+			$$ But we also know that any $\pi$ can be decomposed into a composition of transpositions (2-cycles) $$\pi = (a_1\,a_2\,\dots\,a_k) \;=\; (a_1\,a_k)\circ(a_1\,a_{k-1})\circ\cdots\circ(a_1\,a_2)$$
+		}
+		But each transposition can be decomposed into compositions of our generators $\{(j,j+1)\}$.
+		$$
+		(a_{m}a_{n}) = (j ,k) = (j,j+1)\circ(j+1,j+2)\circ...(k-1,k)\circ(k-2,k-1)\circ...\circ(j+1,j+2)\circ(j,j+1)
+		$$
+		Putting this into the previous decomposition and using the fact that the symmetric group is abelian we conclude that every element of the permuation group can be expressed in the form
+		$$
+		 \pi \;=\; \Pi_j (j,j+1)^{n_{j}}
+		$$
+			\begin{exercise}
+			Let $F$ be a free abelian group with basis $(e_{\alpha})_{\alpha\in J}$ and $A$ be an
+			abelian group. Prove that for each system of vectors $(g_{\alpha})_{\alpha\in J}$ of $A$ there exists
+			exactly one homomorphism $h : F \to A$ such that $h(e_{\alpha}) = g_{\alpha}$ for all $\alpha\in J$.
+		\end{exercise}
+		
+		\solution{
+			$F$ is a free abelian group, so every element $f\in F$ can be written as
+			$$
+			f = \sum n_{\alpha}e_{\alpha}\text{with finitely many } n_{\alpha} \neq 0
+			$$
+			Before showing uniqueness we construct the homomorphism $h$. Define $h:F\to A$ such that
+			$$
+			h(f) = h(\sum n_{\alpha}e_{\alpha}) = \sum n_{\alpha}h(e_{\alpha}) = \sum n_{\alpha} g_{\alpha}
+			$$
+			It is the same $n_{\alpha}$ from before so the sum is well defined. Let us choose $x,y\in F$ so that
+			$$
+			h(x) +h(y) = h(\sum m_{\alpha} e_{\alpha})+h(\sum n_{\alpha}e_{\alpha}) = \sum 
+			(n_{\alpha}+m_{\alpha})g_{\alpha} = h(\sum(m_{\alpha}+n_{\alpha}))
+			=h(x+y)$$ 
+					}
+					So we see it is a homomorphism. Let us assume $h^{\prime}(e_{\alpha}) = g_{\alpha}$is another homomorphism and let $x$ be an arbitrary element in $F$
+					Thus we have
+					$$
+					h(x) = h(\sum m_{\alpha}e_{\alpha}) = \sum m_{\alpha}g_{\alpha} =  h^{\prime}(\sum m_{\alpha}e_{\alpha}) =  h^{\prime}(x)
+					$$
+					So our homomorphism $f$ is unique.
+			\begin{exercise}
+		Let $G$ be isomorphic to $\mathbb{Z}_{28} \oplus\mathbb{Z}_{42} \oplus\mathbb{Z}_{100}\oplus\mathbb{Z} \oplus\mathbb{Z}_{154}\oplus\mathbb{Z} \oplus\mathbb{Z}_{99}$.
+		Compute the torsion coefficieients and the Betti number of $G$.
+		\end{exercise}
+		
+		\solution{
+			We see that the group has two copies of $\mathbb{Z}$ so the betty number is 2. The strategy to get the torsion coefficients is described in the next problem. They are $2,14,462,13860$. We also find a factor of one in our decomposition but that gives the trivial group so we ignore it.
+		}
+			\begin{exercise}
+			\textit{(Extra)} Compute the torsion coefficients  of $\mathbb{Z}_{30} \oplus\mathbb{Z}_{18} \oplus\mathbb{Z}_{75}$.
+		\end{exercise}
+		
+		\solution{
+			We do a prime factorization, $30 = 2\cdot 3\cdot 5$, $18 = 2\cdot 3^{2}$ and $75 = 3\cdot 5^{2}$. If we make vectors of the powers each of the prime factors in the original numbers (for example $18\equiv[1,2,0]$), we can then stack all the vectors and rearrange them in ascending order. Then we read the new numbers powers of the exponents down the columns. So we get the torsion coefficients $2^{0}\cdot 3^{1}\cdot 5^{0} = 3$, $2^{1}\cdot 3^{1}\cdot 5^{1} = 30$ and $2^{1}\cdot 3^{2}\cdot 5^{2} = 450$ 
+		}. As a check one can see that 3 divides 30 and 30 divedes 450. Also $3\cdot 30\cdot 450 = 30\cdot 18\cdot 75$
+			\begin{exercise}
+			\textit{(Extra)} Compute the torsion coefficients  of $\mathbb{Z}_{50} \oplus\mathbb{Z}_{36} \oplus\mathbb{Z}_{2}\oplus\mathbb{Z}_{5}$.
+		\end{exercise}
+		
+		\solution{
+			The coefficients are $2,10,900$.
+		}
+	
+		\lecture{3}{Group of Oriented P Chains}
+\begin{definition}
+	Let $X =  \{x_{\alpha}\}$ be a set. We define
+$$
+G = \{\sum n_{\alpha}x_{\alpha}|n_{\alpha}\in\mathbb{Z}, n_{\alpha}\ \text{almost all 0}\}
+$$
+We define the group operation to be addition where
+$$
+\sum n_{\alpha}x_{\alpha} + \sum m_{\alpha}x_{\alpha} = \sum (n_{\alpha}+m_{\alpha})x_{\alpha}
+$$
+This is a free abelian group with basis $X\subseteq G$
+\end{definition}
+\begin{definition}
+Let $K$ be a simplicial complex.
+\begin{align}
+\scriptstyle{
+C_{p}(K)=\frac{\text{Free Abelian Group generatd by oriented p-simplices of $K$}}{\text{the subgroup generated by $\sigma+\sigma^{\prime}$ such that $\sigma$ and $\sigma^{\prime}$ are the same simplex with opposite orientation}}}
+\end{align}
+$C_{p}(K)$ is the group of oriented p-chains.
+\end{definition}
+In plain english we take a simplicial complex and pickout all the simplices with codimension k. Then we treat the simplices that are the same with opposite orientations as one.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{figures/pchains.pdf}
+	\label{fig:my_diagram}
+\end{figure}
+If we just choose an orientation for each p simplex then we have a basis for $C_{p}(K)$. There are arguments from general group theory that imply the existence of a homomorphism. We skip these details but note that a homomorphism $f$ would map our free abelian group like
+$$
+f\big(\sum n_{\alpha}x_{\alpha}\big) = \sum n_{\alpha} f(x\alpha)
+$$
+on the basis elements. We use this to define the boundary map.
+\begin{definition}
+Let $K$ be a simplicial complex and we define the following function.
+
+$$\partial_{p}:\{\text{Oriented p-simplices of K}\}\to C_{p-1}(K)$$
+$$\partial_{p}([v_0,...,v_p]) = \sum_{i=0}^{p}(-1)^{i}[v_0,...,\hat{v}_{i},...v_p]$$
+where $\hat{v}_{i}$ indicates we remove that vertex from the simplex. This is called the boundary operator
+\end{definition}
+Notice that $(-1)^{i}$ ensures that the orientations of the faces are consistent. This will be necessary to ensure $\partial_{p-1}\circ\partial_{p}= 0$. In the notes it is shown that this is in fact a homomorphism and preserves group structure. Now time for an example.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{figures/boundary_operator.png}
+	\label{fig:my_diagram}
+\end{figure}
+	\begin{exercise}
+Show that $[\partial_{p},\pi] = 0$ with $\pi\in S_{p}$. This is, show that the boundary operator commutes with permutation when acting on elements of $C_{p}(K)$
+\end{exercise}
+\lecture{4}{Boundary Operator Properties and Homology Group}
+Now that we have defined the boundary operator, let us prove the property $\partial_{p-1}\circ\partial_{p} = 0$.
+
+$$\partial_{p-1}\circ\partial_{p}[v_{0},...,v_{p}]= \partial_{p-1}\sum_{i=0}^{p}(-1)^{i}[v_{0},...,\hat{v}_{i},...,v_{p}] = \sum_{i=0}^{p}(-1)^{i}\partial_{p-1}[v_{0},...,\hat{v}_{i},...,v_{p}] =$$
+\textcolor{red}{ask professor about the proof and how to break up the sums ...}
+$$
+= \sum_{i>j}(-1)^{i+j}[v_{0},...,\hat{v}_{j},...,\hat{v}_{i},...,v_{p}]-\sum_{j>i}(-1)^{i+j}[v_{0},...,\hat{v}_{i},...,\hat{v}_{j},...,v_{p}] = 0$$
+The geometric idea is that the boundary of a boundary is nothing.
+\begin{definition}
+We have two preliminary definitions.
+\begin{itemize}
+\item The kernel of $\partial_{p}:C_{p}(K)\to C_{p-1}(K)$ is called the group of p-cycles and is denoted $Z_{p}(K)$
+\item The image of $\partial_{p+1}:C_{p+1}(K)\mapsto C_{p}(K)$ is called the group of p-boundaries and is denoted $B_{p}(K)$ 
+\end{itemize}
+Not that $\partial_{p-1}\circ\partial_{p} = 0 \Rightarrow B_{p}(K) \subseteq Z_{p}(K)$. We have
+\begin{center}
+$H_{p}(K)\equiv Z_{p}(K)/B_{p}(K)$ is called the $p^{th}$ homology group.
+\end{center}
+\end{definition}
+Now let us do some example calculations.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\textwidth]{figures/homcalcpg1.pdf}
+	\label{fig:my_diagram}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\textwidth]{figures/homcalcpg2.pdf}
+	\label{fig:my_diagram}
+\end{figure}
+The Homology group $H_{p}(K)$ detects holes p dimensional holes in your space from the triangulation of the manifold. We can see that in the two examples we just did
+\intermezzo{2}{Review of Some Relevant Definitions from Munkes Topology Chapter 3}
+% ====================================
+% --- CONNECTEDNESS AND COMPACTNESS ---
+% ====================================
+
+\begin{definition}[Connected Space]
+	A topological space $X$ is said to be \emph{connected} if it cannot be written as the union of two disjoint nonempty open subsets.  
+	Equivalently, there do not exist disjoint nonempty open sets $U,V \subseteq X$ with $X = U \cup V$.
+\end{definition}
+
+\begin{definition}[Path Connected Space]
+	A space $X$ is \emph{path connected} if for every pair of points $x,y \in X$ there exists a continuous map
+	\[
+	\gamma : [0,1] \to X
+	\]
+	such that $\gamma(0) = x$ and $\gamma(1) = y$.  
+	The map $\gamma$ is called a \emph{path} from $x$ to $y$.
+\end{definition}
+
+\begin{definition}[Components]
+	Let $X$ be a topological space.
+	\begin{itemize}
+		\item A subset $C \subseteq X$ is \emph{connected} if it is connected as a subspace.
+		\item A \emph{component} (or \emph{connected component}) of $X$ is a maximal connected subset of $X$, i.e. a connected subset not properly contained in any larger connected subset.
+	\end{itemize}
+	The components of $X$ form a partition of $X$, and each component is closed in $X$.
+\end{definition}
+
+\begin{definition}[Compact Space ]
+	A topological space $X$ is \emph{compact} if every open cover of $X$ admits a finite subcover; that is,  
+	whenever $\{\,U_\alpha\,\}_{\alpha \in A}$ is a collection of open subsets with $X = \bigcup_{\alpha \in A} U_\alpha$,  
+	there exist finitely many indices $\alpha_1,\dots,\alpha_n$ such that
+	\[
+	X = U_{\alpha_1} \cup \cdots \cup U_{\alpha_n}.
+	\]
+\end{definition}
+\begin{example}[Connected but not Path Connected: The Topologist's Sine Curve]
+	Consider the subset
+	\[
+	S = \bigl\{ (x, \sin(1/x)) : 0 < x \le 1 \bigr\} \cup \bigl(\{0\} \times [-1,1]\bigr)
+	\subset \mathbb{R}^2.
+	\]
+	\begin{enumerate}
+		\item The set $\{(x, \sin(1/x)) : 0 < x \le 1\}$ is the graph of $\sin(1/x)$, which oscillates infinitely often as $x \to 0^+$.
+		\item The vertical segment $\{0\} \times [-1,1]$ is added to make the set closed in $\mathbb{R}^2$.
+	\end{enumerate}
+	Then:
+	\begin{itemize}
+		\item $S$ is \emph{connected} — any attempt to separate $S$ into disjoint nonempty open subsets fails, because the oscillations of $\sin(1/x)$ accumulate densely along the vertical segment.
+		\item $S$ is \emph{not path connected} — there is no continuous path in $S$ joining a point on the oscillating part (where $x>0$) to a point on the segment $\{0\}\times[-1,1]$. Any such path would force a limit of $\sin(1/x)$ as $x\to 0^+$, which does not exist.
+	\end{itemize}
+	Thus, $S$ provides a standard example of a space that is connected but not path connected.
+\end{example}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{figures/topologistsinecurve.png}
+	\label{fig:my_diagram}
+\end{figure}
+\lecture{5}{Homology Group Structure and Equivalent Homology Group}
+\begin{definition}
+Let $K$ be a simplicial complex with $v\in K^{(0)}$
+We define the star of $v$
+$$
+\text{st}(v) = \cup_{\sigma\in K}\text{Int}(\sigma)\ \text{such that}\ v\ \text{is a vertex of }\sigma
+$$
+\end{definition}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{figures/stv.png}
+	\label{fig:note-oct-8-2025}
+\end{figure}
+We can take its closure. We can also see that st($v$) is an open set of $|K|$ so that $|K|/\text{st}(v)$ is closed in the topology.
+\begin{theorem}
+Let $K$ be a simplicial complex and $H_{0}(K)$ is a free abelian group. If $\{v_{\alpha}\}\subseteq K^{(0)}$ such that each connected component of $|K|$ contains exactly one element of $\{v_{\alpha}\}$, then the equivalence classes of $\{v_{\alpha}\}$ give a basis of $H_{0}$(K)
+\end{theorem}
+This is an extremely confusing definition. The point is that $H_{0}(K)$ just counts the number of connected components. It would make more sense to consider a space of multiple components, then show that each component is generated by one vertex using properties of connectedness. But I omit the proof from these notes. Using this idea we can create a new definition from our star definition.
+\begin{definition}
+$$
+C_{v} = \cup_{w\sim v}\  \text{st}(w)
+$$
+are the connected components of $|K|$
+\begin{itemize}
+\item $C_{v}$ are open in the topology on $|K|$
+\item $C_{v}$ are (path) connected
+\end{itemize}
+\end{definition}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+	\begin{exercise}
+Let $K$ be a simplicial complex and $Y$ be a topological space.  
+Prove that $f : |K| \to Y$ is a continuous function if and only if $f|_{\sigma}$ is continuous for all $\sigma \in K$.
+\end{exercise}
+\solution{
+$(\Rightarrow)$ We use theorem 18.2 (d) of Munkres Topology for constructing continuous functions. If $f:|K|\to Y$ is continuous and $\sigma \subset |K|$, then $f|_{\sigma}: \sigma \to Y$ is also continuous. This is true for all the $\sigma$ in $|K|$, so the forwards statement is true.
+\newline
+
+$(\Leftarrow)$ Now we assume that for all $\sigma_i\in |K|$ that $f|_{\sigma_i}:\sigma_i\to Y$ are continuous functions. So for each closed set $C \subseteq Y$ we have that $(f|_{\sigma_i})^{-1}(C)$ is closed in $\sigma_i$. Each $\sigma_i$ has the toplogy it inherits from $\mathbb{R}^{n}$ so $(f|_{\sigma_i})^{-1}(C)$ is closed in this topology. But because $(f|_{\sigma_i})^{-1}(C)$ is closed and $\sigma_i$ is closed in the toplogy induced by $\mathbb{R}^{n}$, we have that $ (f|_{\sigma_i})^{-1}(C)\cap \sigma_i = (f|_{\sigma_i})^{-1}(C)$. Because this holds for all the possible $\sigma_i\in K$ , $(f|_{\sigma_i})^{-1}(C)$ will always be  closed in the topology of $|K|$. Because $C\subseteq Y$ was a closed set, it follows that $f:|K|\to Y$ is continuous.
+
+}
+\begin{exercise}
+\begin{enumerate}
+	\item Let $x$ be a point of the simplicial complex $v_0 v_1 \cdots v_p$, then we have that
+	\[
+	x = \sum_{i=0}^p t_i v_i
+	\]
+	with $t_i \geq 0$ and $\sum_{i=0}^p t_i = 1$.  
+	Prove that the coefficients $t_i$ are uniquely determined by $x$.  
+	The real numbers $t_i$ are called \textit{barycentric coordinates} of $x$.
+	
+	\item Let $K$ be a simplicial complex. Prove that each $x \in |K|$ is contained in the interior of exactly one simplex of $K$.  
+	Then fix $v \in K^{(0)}$ and define
+	\[
+	t_v : |K| \to \mathbb{R}
+	\]
+	as the function associating $x \in |K|$ with the barycentric coordinate of $x$ with respect to $v$ if $x$ is contained in the interior of a simplex of vertex $v$, otherwise we set $t_v(x) = 0$.  
+	Prove that $t_v$ is continuous.
+\end{enumerate}
+	\begin{exercise}
+	Let $K$ be a simplicial complex. Prove that:
+	\begin{enumerate}
+		\item $|K|$ is Hausdorff;
+		\item in $|K|$ path-connected components and connected components coincide;
+		\item if $K$ is finite, $|K|$ is compact.
+	\end{enumerate}
+		\end{exercise}
+	\end{exercise}
+	\solution{	
+\begin{enumerate}
+\item Let $\sigma$ and $\sigma^{\prime}$ be disctinct simplexes in $|K|$. First, let $x,y$ be distinct points in $\sigma$. Because $\sigma$ inherits the topology of $\mathbb{R}^n$ and $\mathbb{R}^{n}$ is Hausdorff, there exists $U$ and $V$ disjoint sets in $\sigma$ such that $x\in U$ and $y\in V$. Now let $x\in \sigma$ and $y\in\sigma^{\prime}$. If $\sigma\cap\sigma^{\prime}=\emptyset$ then the Hausdorff criteria automatically follows. But if $\sigma\cap\sigma^{\prime}\neq\emptyset $ then either $x$ or $y$ or both are in $\sigma\cap\sigma^{\prime}$. In that case we invoke the Hausdorff property of $\mathbb{R}^{n}$ inherited by $\sigma\cap\sigma^{\prime}$. In all cases $|K|$ is Hausdorff.
+\item Path connected always imply connected. So we only need to prove that the connected components of $|K|$ are also path connected.
+\item Because the polytope $|K|$ is embedded in $\mathbb{R}^{n}$ we use the Heine-Borel theorem which states that compactness is equivalent to boundedness and closedness. Because the vertices $\{v\}$ in $|K|$ are geometrically independent, we subtract all vertices from $\vec{0}$ to get $\{\vec{v}\}$. Let $R = \max{||\vec{v}||}$ such that $\vec{v}\in\{\vec{v}\}$. Then we can bound the Polytope in a ball $B_{R}(0)$. So $|K|$ is bounded. Because each $\sigma$ is closed in $\mathbb{R}^{n}$, $|K|=\cup_{\sigma\in K}\sigma$ is also closed. It follows that $|K|$ is compact.
+\end{enumerate}
+	
+	}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1.0\textwidth]{figures/homework3.pdf}
+		\label{fig:my_diagram}
+	\end{figure}
+\end{document}
