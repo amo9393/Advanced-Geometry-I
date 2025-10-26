@@ -2,10 +2,11 @@
 
 % --- FONT + LANGUAGE ---
 \usepackage{fontspec} % for custom fonts (requires xelatex/lualatex)
-\setmainfont{Kalam} % <-- requires Kalam installed
+\setmainfont{Arial} % <-- requires Kalam installed
 \usepackage{graphicx}   % for including images
 \usepackage{float}      % optional: for [H] placement
-
+\usepackage{xcolor}
+\usepackage{tikz-cd} 
 % --- MATH PACKAGES ---
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{mathtools}
@@ -532,30 +533,48 @@ are the connected components of $|K|$
 \item $C_{v}$ are (path) connected
 \end{itemize}
 \end{definition}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\newpage
+I dont put the proof here but it should be clear that if there is an edge between $v$ and $w$ That if we take the union of all these stars it gives us the connected components of $|K|$. Now let $\{v_{\alpha}\}$ be a set of vertices such there is one vertex from each connected component. The boundary map is trivially 0, $\partial_{0}C_{0}\to C_{-1} = 0$. It follows that $C_{0}(K) = Z_{0}(K)$. Now let $w\in K^{(0)}$. Then there exists $\alpha$ and $d\in C_{1}(K)$ such that $w-v_{\alpha}=\partial d $. In plain english, if $w$ is a vertex then there is a one cycle $d$ such that $w-\v_{\alpha}$ is the boundary of $d.$ The proof is a calculation
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\linewidth]{figures/connectedproof.png}
+	\label{fig:note-oct-8-2025}
+\end{figure}
+So now we can undrestand $H_{0}(K)$ a little better. If two vertices are connected by edges then they are in the same $H_{0}(K)$ equivalent class. But that is only the case if they are connected. So the $H_{0}(K)$ counts the number of connected components of the manifold. The $\{v_{\alpha}\}$ form a basis for $H_{0}(K)$. So all elements of this group are linear combinations. The proof uses definiton of a basis and the boundary map. I omit it but we can use this idea to define a new function.
+\begin{definition}
+Define a homomorphism $\varepsilon: C_{0}(K)\to\mathbb{Z}$ such that $\varepsilon(v)= 1\ \forall v\in C_{0}(K)$. That is $\varepsilon(\sum n_{\alpha}v_{\alpha}) = \sum{n_{\alpha}}$
+We call this function the augmentation map.
+\end{definition}
+From this definition it is clear that $\varepsilon(\partial [v,w]) = 1 - 1 = 0 \Rightarrow \varepsilon \circ \partial_{1} = 0$. Now we can define the reduced homology groups. First recall $H_{0}(K)=C_{0}(K)/\Im{\partial_{1}}$
+\begin{definition}
+Attach the augmentation map $\varepsilon:C_{0}(K)\to\mathbb{Z}$ to the chain complex to form the
+\emph{augmented} complex
+\[
+\cdots \xrightarrow{\partial_{2}} C_{1}(K)
+\xrightarrow{\partial_{1}} C_{0}(K)
+\xrightarrow{\ \varepsilon\ } \mathbb{Z} \to 0 .
+\]
+The \emph{reduced homology groups} $\widetilde H_n(K)$ are the homology groups of this augmented complex; equivalently,
+\[
+\widetilde H_n(K)=
+\begin{cases}
+	\ker(\partial_n)\big/ \operatorname{im}(\partial_{n+1}), & n\ge 1,\\[4pt]
+	\ker(\varepsilon)\big/ \operatorname{im}(\partial_{1}), & n=0.
+\end{cases}
+\]
+In particular, for $n\ge 1$ we have $\widetilde H_n(K)\cong H_n(K)$, while
+$\widetilde H_0(K)=\ker(\varepsilon)/\operatorname{im}(\partial_1)$.
+\end{definition}
+We can contrast this to Homology groups:\[
+\text{Homology Groups:}\quad
+\cdots \xrightarrow{\partial_{2}} C_{1}(K)
+\xrightarrow{\partial_{1}} C_{0}(K)
+\xrightarrow{\;0\;} 0 \xrightarrow{\;0\;} 0
+\]
+This lecture concluded with the following theorem
+\begin{theorem}
+$\tilde{H}_{0}(K)$ is free and $H_{0}(K)\simeq\tilde{H}_{0}(K)\oplus \mathbb{Z}$. If $K$ is connected than $\tilde{H}_{0}(K) = 0$
+\end{theorem}
+There is a proof in the notes but we already know $H_{0}(K) = \mathbb{Z}$ if it is connected. So of course this reduced homolgy group must be 0.
 	\begin{exercise}
 Let $K$ be a simplicial complex and $Y$ be a topological space.  
 Prove that $f : |K| \to Y$ is a continuous function if and only if $f|_{\sigma}$ is continuous for all $\sigma \in K$.
@@ -585,6 +604,45 @@ $(\Leftarrow)$ Now we assume that for all $\sigma_i\in |K|$ that $f|_{\sigma_i}:
 	as the function associating $x \in |K|$ with the barycentric coordinate of $x$ with respect to $v$ if $x$ is contained in the interior of a simplex of vertex $v$, otherwise we set $t_v(x) = 0$.  
 	Prove that $t_v$ is continuous.
 \end{enumerate}
+\solution{
+\begin{enumerate}
+\item Consider two points in $|K|$, $x$ and $x^{\prime}$. Let us assume $x = x^{\prime}$. Thus we have
+$$
+\sum_{i=0}^{p}t_{i}v_{i} = \sum_{i=0}^{p}t^{\prime}_{i}v_{i}, \quad \sum_{i=0}^{p}t_{i}=\sum_{i=0}^{p}t_{i}^{\prime} = 1,\quad t_{i},t_{i}^{\prime}\geq 0
+$$
+We can subtract a vertex $v_{j}$ from each point to get a set of linearly independent vectors. Now we have
+$$
+\vec{x} = \sum_{i=0}^{p}t_{i}(v_{i}-v_{j}),\quad \vec{x}^{\prime}= \sum_{i=0}^{p}t^{\prime}_{i}(v_{i}-v_{j})
+$$
+Because $\vec{x} = \vec{x}^{\prime}$ we have
+$$
+\vec{0} = \vec{x}-\vec{x}^{\prime} = \sum_{i=0}^{p}(t_{i}-t_{i}^{\prime})\vec{v}_{ij}
+$$
+The basis is linearly independent so $t_{i} = t_{i}^{\prime}\ \forall i$. So the coefficients $t_{i}$ uniquely determine the point $x$. 
+\item Now let $x$ belong to the interior of two simplexes of $\sigma$ and $\tau$ of the simplicial complex $K$. $\sigma \cap \tau \neq \emptyset \Rightarrow \sigma \cap \tau $ is a face common to both $\sigma$ and $\tau$. But this cannot be a proper face because this would mean $x\in\partial \sigma$ or $\partial\tau$. So we can conclude 
+$$
+\sigma\cap\tau = \sigma\  \text{and}\  \sigma\cap\tau = \tau \Rightarrow \sigma = \tau
+$$
+So $x$ can only belong to the interior of one simplex of $K$
+\newline 
+
+Now we fix $v\in K^{(0)}$ and define $t_{v}:|K|\to\mathbb{R}$ as 
+\[
+t_v(x)=
+\begin{cases}
+	t_i, & \text{if } v = v_i\in \sigma \text{ and } x \in \operatorname{int}\sigma,\\[4pt]
+	0,      & \text{if } v \notin \sigma
+\end{cases}
+\]
+Choose $\sigma = \langle v_{0}v_{1},...,v_{k}\rangle$. If $v\notin\sigma$ then $(t_{v}|_{\sigma})(x) = 0$ for all $x$ in the interior of $\sigma$. This is just a constant map so it is continuous. 
+Now let $v\in\sigma$. We have that $t_{i}$ is a singleton in $\mathbb{R}$ so it is closed. If we take a look at the preimage of $t_{i}$ we have
+$$
+t_{v}^{-1}(t_{i}) = [a_{1i},a_{1f}]\times ... \times (t_{i}) \times ...\times[a_{pi},a_{pf}]
+$$
+where $a_{ij}$ is determined by the constraint $\sum_{i}^{p}t_{i}=1$. This is also closed in $\sigma$, which has the toplogy of $\mathbb{R}^{n}$. So $t_{v}(x)$ is continuous.
+Because the function restricted to $\sigma$ is continuous for all $\sigma\in K$ we use the result of the first exercise to conclude that the function is continuous on the whole space.
+ \end{enumerate}
+}
 	\begin{exercise}
 	Let $K$ be a simplicial complex. Prove that:
 	\begin{enumerate}
@@ -597,14 +655,577 @@ $(\Leftarrow)$ Now we assume that for all $\sigma_i\in |K|$ that $f|_{\sigma_i}:
 	\solution{	
 \begin{enumerate}
 \item Let $\sigma$ and $\sigma^{\prime}$ be disctinct simplexes in $|K|$. First, let $x,y$ be distinct points in $\sigma$. Because $\sigma$ inherits the topology of $\mathbb{R}^n$ and $\mathbb{R}^{n}$ is Hausdorff, there exists $U$ and $V$ disjoint sets in $\sigma$ such that $x\in U$ and $y\in V$. Now let $x\in \sigma$ and $y\in\sigma^{\prime}$. If $\sigma\cap\sigma^{\prime}=\emptyset$ then the Hausdorff criteria automatically follows. But if $\sigma\cap\sigma^{\prime}\neq\emptyset $ then either $x$ or $y$ or both are in $\sigma\cap\sigma^{\prime}$. In that case we invoke the Hausdorff property of $\mathbb{R}^{n}$ inherited by $\sigma\cap\sigma^{\prime}$. In all cases $|K|$ is Hausdorff.
-\item Path connected always imply connected. So we only need to prove that the connected components of $|K|$ are also path connected.
+\item Path connected always imply connected. So we only need to prove that the connected components of $|K|$ are also path connected. \textcolor{red}{Finish proof}
 \item Because the polytope $|K|$ is embedded in $\mathbb{R}^{n}$ we use the Heine-Borel theorem which states that compactness is equivalent to boundedness and closedness. Because the vertices $\{v\}$ in $|K|$ are geometrically independent, we subtract all vertices from $\vec{0}$ to get $\{\vec{v}\}$. Let $R = \max{||\vec{v}||}$ such that $\vec{v}\in\{\vec{v}\}$. Then we can bound the Polytope in a ball $B_{R}(0)$. So $|K|$ is bounded. Because each $\sigma$ is closed in $\mathbb{R}^{n}$, $|K|=\cup_{\sigma\in K}\sigma$ is also closed. It follows that $|K|$ is compact.
 \end{enumerate}
-	
+\lecture{6}{Homology Group of A Cone and more Reduced Homology Group Properties}
+	 Given a simplicial complex $|K|$, we can define an operation to add another vertex and create a  new simplicial complex.
+
+\begin{definition}
+	We define the cone on $K$ with vertex $w$ as a point $w\in\mathbb{R}^{n}$ that  intersects $|K|$ in at most one point. 
+	$$
+	w*K = K\cup\{wa_{1}...a_{p}|a_{1}...a_{p}\in K\}\cup\{w\}
+	$$
+\end{definition}
+One can verify that this new structure is also a simplicial complex. The point $w$ cannot be collinear with any of the 1 faces of $|K|$.
+\begin{definition}
+	Let $w*K$ be a cone. We define a homomorphism
+	$$
+	C_{p}(K)\to C_{p+1}(w*K)
+	$$
+	$$
+	[a_{0},...,a_{p}]\to[w,a_{0},...,a_{p}]
+	$$
+\end{definition}
+Now we have a nice interesting theorem.
+\begin{theorem}
+	$\tilde{H}_{p}(w*K) = 0\ \forall\ p$. We call this property acyclic. 
+\end{theorem}
+Adding a cone to even a nonconnected subspace makes in contractible to a point. And removes all holes. Like a torus, adding a cone will make the entire space connected and remove the holes. The proof is a calculation again. $p=0$ trivial because $w*K$ is connected. Then you do a calculation for $p>1$. The proof is carried out in the lecture notes.
+\begin{theorem}
+	Let $\sigma$ be an n-simplex.  We have $K_{\sigma}$, the simplicial complex built from $\sigma$ (filled in polyhedron) is acyclic. For $n>0$ we define
+	$$
+	\Sigma^{n-1} = \{\text{proper faces of $\sigma$}\}
+	$$
+	We have that 
+	\begin{itemize}
+		\item $\tilde{H}_{n-1}(\Sigma^{n-1})\simeq \mathbb{Z}$
+		\item $\tilde{H}_{i}(\Sigma^{n-1})=0\ \forall i \neq n-1$
+	\end{itemize}
+	If we give an orientation to $\sigma$ then $\partial \sigma$ generates $\tilde{H}_{n-1}(\Sigma^{n-1})$
+\end{theorem}
 	}
 	\begin{figure}[H]
 		\centering
 		\includegraphics[width=1.0\textwidth]{figures/homework3.pdf}
 		\label{fig:my_diagram}
-	\end{figure}
+\end{figure}
+\begin{exercise}
+Do the above exercise
+\end{exercise}
+	
+	\lecture{7}{Beginning of Singular Homology and its Topological Invariance}
+	We use the notation $e_{0},...,e_{p}$ is the standard basis for $\mathbb{R}^{p+1}$. We define $\Delta_{p}\equiv e_{0}...e_{p}$ as the standard p-simplex
+	\[
+	\Delta_p = \{ (t_0, \ldots, t_p) \in \mathbb{R}^{p+1} \mid t_i \ge 0, \ \sum t_i = 1 \}.
+	\]
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{figures/polytope.png}
+	\label{fig:my_diagram}
+\end{figure}
+\begin{definition}
+	Let $X$ be a topological space. A singular $p-$simplex is a continuous map
+	$$
+	\sigma:\Delta_{p} \to X
+	$$
+\end{definition}
+The only condition on $\sigma$ is continuity. In simplicial homology we focused on the combinatorial structure of the building blocks of the polytope. Now we are focusing on the whole space, studying all possible continuous maps from the polytope to a topological space $X$. 
+\begin{definition}
+The free abelian group generated by the singular p-simplices is called the singular p-chain group $S_{p}(X)$.
+\end{definition}
+The members of this group are the maps $\sigma_{i}$ and $X$ is the target space, the space we wish to study. Let ${a_{0}},...,a_{p}\subseteq \mathbb{R}^{n}$, not necessarily geometricall independent. We define
+$$
+\varphi (a_{0},...,a_{p}):\Delta_{P}\to\mathbb{R}^{n}
+$$
+$$
+\sum t_{i}e_{i} \to \sum t_{i}a_{i}
+$$
+$\varphi (a_{0},...,a_{p})$ is a p simplex of $R^{n}$ (continuous). We have $\varphi (e_{0},...,e_{P}) \equiv \text{Id}_{\Delta_{P}}.$ We also have $\varphi (e_{0},..,\hat{e}_{i},.,e_{P}):\Delta_{p-1}\to\Delta_{P}$. As an example
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{figures/examplemap1.png}
+	\label{fig:my_diagram}
+\end{figure}
+We have a basis for $S_{P}(X)$, the set $\{\sigma|\text{\ singular p simplices}\} = \mathcal{S}$ Any function $\mathcal{S}\to G \text{ (Abelian Group)}$ can be uniquely extend to homomorphism $S_{P}(X)\to G$ We can now define another boundary operator in this Homology setting.
+\begin{definition}
+Let $\partial_{P}:S_{P}(X)\to S_{P-1}(X)$ by the homomorphism
+$$
+\partial_{P}(\sigma)=\sum_{i=0}^{p}(-1)^{i}\sigma \circ \varphi(e_{0},...,\hat{e}_{i},...,e_{p})
+$$
+where $\sigma\circ\varphi(e_{0},...,\hat{e}_{i},...e_{p})$
+\end{definition}
+This operator works like the boundary in simplicial homology, $\Im{\partial_{p}}\subseteq \text{Ker}{\partial_{p-1}}$. The proof is analagous to the simplical homology proof. With this definition we define the chain complex.
+\begin{definition}
+We define the chain complex $\{S_{P}(X),\partial_{P}\}$
+\newline
+$$
+\cdots 
+\xrightarrow{\partial_{p+2}} 
+S_{p+1}(X) 
+\xrightarrow{\partial_{p+1}} 
+S_{p}(X) 
+\xrightarrow{\partial_{p}} 
+S_{p-1}(X) 
+\xrightarrow{\partial_{p-1}} 
+\cdots 
+\xrightarrow{\partial_{1}} 
+S_{0}(X) 
+\longrightarrow 0
+$$
+\begin{itemize}
+\item $Z_{P}(X)\equiv \text{ker}\partial_{P} \text{ group of (singular) p-cycles}$
+\item $B_{P}(X)\equiv \partial_{P+1}(S_{P+1}(X)) \text{ group of (singular) p-boundaries}$
+\end{itemize}
+\end{definition}
+We have $\partial_{P-1}\partial_{P} = 0 \Rightarrow B_{P}(X)\subseteq Z_{P}(X)$. We have that
+$$
+H_{P}(X) = Z_{P}(X)/B_{P}(X) \equiv \text{ the singular pth homology group}
+$$
+We would eventually like to prove that these groups are topological invariants, invariants under homeomorphism. To prove this we will need to build up a bit of the algebra of these groups before we can make this claim that singular homology groups are topological invariants.
+\begin{definition}
+Let $\{A_{p}\},\ p\in\mathbb{Z}$ be a family of abelian groups and $\{\partial_{P}:A_{p}\to A_{p-1}\}$ be homomorphisms such that $\partial_{p}\circ\partial_{p+1}=0$. Then in general we have what is called a chain complex
+$$
+\cdots 
+\xrightarrow{\partial_{p+2}} 
+A_{p+1}
+\xrightarrow{\partial_{p+1}} 
+A_{p}
+\xrightarrow{\partial_{p}} 
+A_{p-1}
+\xrightarrow{\partial_{p-1}} 
+\cdots 
+\xrightarrow{\partial_{1}} 
+A_{0}
+\longrightarrow 0
+$$
+\end{definition}
+In this more general setting where we dont care about the topological space $X$, we still have that $\ker{\partial_{P}}\subseteq \Im{\partial_{p+1}}$. From this we have a general homology group for $\{A_{p}, \partial_{P}\}$
+$$
+H_{P}(A)=\Im{\partial_{p+1}}/ \ker{\partial_{P}}
+$$ We can actually define homomorphisms between two chain maps.
+\begin{definition}
+Let $\varphi = \{C_{p},\partial_{P}\}$ and $\varphi^{\prime} = \{C_{p}^{\prime},\partial_{P}^{\prime}\}$ be chain complexes. A family of homomorphisms $\{\phi_{P}:C_{P}\to C_{P}^{\prime}\}$ such that $\phi_{P-1}\circ\phi_{P}= \partial_{P}^{\prime}\circ\phi_{P}$ is called a chain map from $\varphi$ to $\varphi^{\prime}$
+\[
+\begin{array}{ccccccccc}
+	\cdots & \xrightarrow{\partial_{p+2}} & C_{p+1} & \xrightarrow{\partial_{p+1}} & C_{p} & \xrightarrow{\partial_{p}} & C_{p-1} & \xrightarrow{\partial_{p-1}} & \cdots \xrightarrow{\partial_{1}} C_{0} \longrightarrow 0 \\
+	& & \ \downarrow \phi_{p+1} & & \ \downarrow \phi_{p} & & \ \downarrow \phi_{p-1} & & \\
+	\cdots & \xrightarrow{\partial_{p+2}'} & C^{\prime}_{p+1} & \xrightarrow{\partial_{p+1}'} & C^{\prime}_{p} & \xrightarrow{\partial_{p}'} & C^{\prime}_{p-1} & \xrightarrow{\partial_{p-1}'} & \cdots \xrightarrow{\partial_{1}'} C^{\prime}_{0} \longrightarrow 0
+\end{array}
+\]
+\end{definition}
+With our chain map definition we can study maps between singular homology groups. Now let $\phi:\varepsilon\to\varepsilon^{\prime}$ be chain map. We can define a new function.
+\begin{definition}
+$$
+(\phi_{*})_{p}:H_{p}(\epsilon)\to H_{p}(\epsilon^{\prime})
+$$
+$$
+(\phi_{*})_{p}([c]) = [\phi([c])]
+$$ 
+and we have a set for all the simplices $\phi_{*} = \{(\phi_{*})_{p}\}$
+\end{definition}
+This map now maps between the equivalence classes, but $\phi$ just mapped between teh chain groups. $\phi_{*}$ is well defined. Let $c,c^{\prime}\in\ker{\partial_{p}}\ \text{such that} [c] = [c^{\prime}]$.
+$$
+[c] = [c^{\prime}] \Rightarrow c-c^{\prime} = \partial d
+$$
+$$
+\phi_{*}([c]) = \phi_{*}(\partial d + c^{\prime}) = [\phi(\partial d+c^{\prime})] = [\phi(\partial d)+\phi(c^{\prime})] = [\partial\phi(d)+\phi(c^{\prime})] = 0 +[\phi(c^{\prime})] = \phi_{*}([c^{\prime}])
+$$
+A few remarks are in order.
+\begin{itemize}
+\item $(\phi_{*})_{p}$ is a homomorphism
+\item $\phi: \varepsilon\to\epsilon^{\prime}$ and $\Phi:\varepsilon^{\prime}\to\varepsilon^{\prime\prime}$ then $\Phi\circ\phi:\varepsilon\to\varepsilon^{\prime\prime}$
+\item $(\Phi\circ\phi)_{*}=\Phi_{*}\circ\phi_{*}$
+\item $\text{Id}:\varepsilon\to\varepsilon $ is a chain map then $(\text{Id}_{*})_{p} = \text{Id}_{H_{p}}$
+\end{itemize}
+\begin{center}
+\textcolor{red}{prove these properties. Third and fourth properties are called functorial properties}
+\end{center}
+\begin{itemize}
+\item \textcolor{red}{proof 1}
+\item \textcolor{red}{proof 2}
+\item \textcolor{red}{proof 3}
+\item \textcolor{red}{proof 4}
+\end{itemize}
+We can use all this now to prove topological invariance of the singular homology groups.
+\begin{definition}
+Let $f:X\to Y$ be a continuous function.
+We define
+$$
+(f_{#})_{p}: S_{p}(X)\to S_{p}(Y)
+$$
+$$
+(f_{#})_{p}(\sigma) = f\circ \sigma
+$$
+\end{definition}
+We have that $(f_{#})_{p}$ is a chain map, but I dont prove it. At this point we are just defining new functions in terms of compositions of functions, then defining functions on top of that. The reason that most people do not like algebra.
+Let $f:X\to Y$ and $g:Y\to Z$ be continuous. They satisfy the functorial properties:
+\begin{itemize}
+\item $f_{\#}\circ g_{\#} = (f\circ g)_{\#}$
+\item For $\text{Id}_{X}:X\to X$ we have that $(\text{Id}_{X})_{\#} = \text{Id}_{\text{Sp}(X)}$
+\end{itemize}
+Now we define a final function in terms of the other functions to get our prized topological invariance.
+\begin{definition}
+Let $(f_{#})_{*}:H_{p}(X)\to H_{p}(Y)$ be a homomorphism. It has functorial properties like the other ones.
+\begin{corollary}
+If $h:X\to Y$ is a homeomorphism then $(h_{#})_{*}:H_{p}(X)\to H_{p}(Y)$ is an isomorphism for all $p$.
+\end{corollary}
+\end{definition}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\begin{exercise}
+Prove the following functorial properties. Let $f:X\to Y$ and $g:Y\to Z$ be continuous functions. Then
+\begin{enumerate}
+\item $g_{\#}\circ f_{\#} = (g\circ f)_{\#}$
+\item For $\text{Id}_{X}:X\to X$ we have that $(\text{Id}_{X})_{\#} = \text{Id}_{\text{Sp}(X)}$
+\end{enumerate}
+\end{exercise}
+\solution{
+\begin{enumerate}
+\item Let $\sigma_{i}$ be  a generator of $S_{p}(X)$. Thus we have
+$$
+g_{\#}\circ f_{\#}(\sigma_{i}) = g_{\#}(f_{\#}(\sigma_{i})) = g_{\#}(f\circ\sigma_{i}) = g\circ f\circ \sigma_{i} =  (g\circ f)_{\#}(\sigma_{i})
+$$
+\item  Let $\sigma_{i}$ be  a generator of $S_{p}(X)$. Thus we have
+$$
+(\text{Id}_{X})_{\#}(\sigma_{i}) = \text{Id}_{X} \circ \sigma_{i} = \sigma_{i}
+$$
+so $(\text{Id}_{X})_{\#} = \text{Id}_{S_{p}(X)}$
+\end{enumerate}
+}
+\lecture{8}{Reduced Homology, Properties of Singular Homology, Relative Homology and Homological Algebra Part II}
+Consider the chain complex
+$$
+...\rightarrow S_{2}(X)\rightarrow S_{1}(X)\rightarrow S_{0}(X)\rightarrow 0 \rightarrow 0 ...
+$$
+\begin{definition}
+We define $\epsilon:S_{0}(X)\to\mathbb{Z}$ by
+$$
+\epsilon(\sigma) = 1\ \forall \ \text{0 simplices}\ \sigma
+$$
+We can prove $\epsilon\circ\sigma = 0$. Then we get the augmented chain complex 
+$$
+...\rightarrow S_{2}(X)\rightarrow S_{1}(X)\rightarrow S_{0}(X)\xrightarrow{\epsilon}
+ \mathbb{Z} \rightarrow 0 ...
+$$
+With this chain complex we define reduced homology groups
+$$
+\tilde{H}_{0}(X) = \frac{\ker{\epsilon}}{\partial_{1}S_{1}}
+$$
+For the rest of the $p$ they are equivalent to rest of homology groups.
+\end{definition}
+It seems pedantic to create this definition but it will help us in our calculations. It also gets rid of a factor of $\mathbb{Z}$ so $\tilde{H}_{0}(point) = 0$.  Now we move on to properties of the singular homology group.
+\begin{proposition}
+Let $X = \cup_{\alpha}X_{\alpha}$ be a topological space where each $X_{\alpha}$ are the path connected components. Then 
+$$
+H_{p}(X)\cong \oplus_{\alpha}H_{p}(X_{\alpha})
+$$
+\end{proposition}
+This is a nice property and I don't prove it. We will use it in a later proof though.
+\begin{proposition}
+Let $X$ be a topological space. Then $H_{0}(X)$ is free abelian and if $\{\sigma_{\alpha}}\}$ is a family of 0 simplices such that for $\forall$ path connected components $X_{\alpha}$ there existes exactly one $\sigma_{\alpha}$ such that $\sigma_{\alpha}(\Delta_{0})\in X_{\alpha}$ then $\{\sigma_{\alpha}\}$ is a basis for $H_{0}(X)$.
+\end{proposition}
+I don't prove this one either but we use this to make another proposition.
+\begin{proposition}
+Let $X$, $X_{\alpha}$ and $\{\sigma_{\alpha}\}$ be as in the previous proposition. Then $\tilde{H}_{0}(X)$ is a free abelian group. If we fix $\alpha_{0}$ then $\{[\sigma_{\alpha}-\sigma_{0}]|\alpha\neq\alpha_{0}\}$ is a basis of $\tilde{H}_{0}(X)$.
+\end{proposition}
+Now we put all these propositions to use.
+\begin{theorem}
+If $X = \{x_{0}\}$ as single point then $X$ is acyclic. $\tilde{H}_{p}(X) = 0$ for all $p$
+\end{theorem}
+This makes sense because the $p^{th}$ homology group measures the number of $p$ dimensional holes of a space. Lets see how easy or difficult it is to get this trivial result.
+\begin{proof}
+There exists a unique p-simplex (for each p)
+$$
+\sigma_{p}:\Delta_{p}\to\{x_{0}\}
+$$
+which is clearly a constant function. Let us consider the chain map
+$$
+...\xrightarrow{\partial_{2k+1}} S_{2k+1}(X)\xrightarrow{\partial_{2k+1}} S_{2k}(X)\xrightarrow{\partial_{2k}} S_{2k-1}(X)\xrightarrow{\partial_{2k-1}}S_{2k-2}(X)\xrightarrow{\partial_{2k-2}}...
+$$
+Given that there is only one $\sigma_{p}$ for each $p$ we have that this chain becomes
+$$
+...\xrightarrow{\partial_{2k+2}} \mathbb{Z}\xrightarrow{\partial_{2k+1}} \mathbb{Z}\xrightarrow{\partial_{2k}} \mathbb{Z}\xrightarrow{\partial_{2k-1}}\mathbb{Z}\xrightarrow{\partial_{2k-2}}...
+$$
+If we apply the boundary operator to any $\sigma_{p}$ we have
+$$
+\partial_{p}(\sigma_{p})=\sum_{i=0}^{p}(-1)^{i}\sigma_{p}\circ \varphi_{i} = (\sum_{i}^{p}(-1)^{i})\sigma_{p-1}
+$$
+which is just adding a constant map over and over. We have
+$$
+\partial_{p}(\sigma_{p}) = 
+\begin{cases}
+0,\quad \text{p is odd}\\
+\sigma_{p-1},\  \text{p is even}
+\end{cases}
+$$
+So the chain complex is now
+$$
+...\xrightarrow{Id} \mathbb{Z}\xrightarrow{0} \mathbb{Z}\xrightarrow{Id}\mathbb{Z}\xrightarrow{0}\mathbb{Z}\xrightarrow{Id}...
+$$
+Let us look at the Homology groups $H_{p}(X)=\ker{\partial_{p}/\Im{\partial_{p+1}}$. We have that $\ker{Id} = 0$, $\Im{Id}=\mathbb{Z}$, $ \ker{0} = \mathbb{Z}$ and $\Im{0} = 0$. This gives us that for p odd we have
+$$
+\tilde{H}_{p}(X) = \mathbb{Z}/\mathbb{Z} = 0
+$$
+and for p even we have
+$$
+\tilde{H}_{p}(X) = 0/0= 0
+$$. 
+Because $X$ is connected $\tilde{H}_{0}(X) = 0$.
+Thus it is acyclic.
+\end{proof}
+Alot of work for a trivial point. We will move towards doing calculations with exact sequences, which are a better computational tool. Before we do that we define relative homology but I skip over most of the details.\begin{definition}
+	Let $A \subseteq X$.  
+	The group of relative $p$-chains is defined as the quotient
+	\[
+	S_p(X,A) = S_p(X) / S_p(A),
+	\]
+	where $S_p(X)$ and $S_p(A)$ are the singular $p$-chain groups of $X$ and $A$.
+	
+	The boundary map is induced from the usual one:
+	\[
+	\partial_p[\sigma] = [\partial_p\sigma],
+	\]
+	and satisfies $\partial_p^2 = 0$.
+	
+	The \textit{relative homology groups} of the pair $(X,A)$ are then
+	\[
+	H_p(X,A) = \ker(\partial_p) / \operatorname{im}(\partial_{p+1}),
+	\]
+	that is, the homology of the quotient chain complex $S_*(X,A)$.
+\end{definition}
+Most results carry over from regular homology. Before we get to the main computational tool of exact sequences we return to Homological Algebra to build up some results we will need.
+\begin{definition}
+Consider a  sequence of abelian groups and homomorphisms
+$$
+...\xrightarrow{\phi_{i+2}}A_{i+1}\xrightarrow{\phi_{i+1}}A_{i}\xrightarrow{\phi_{i}}...
+$$	
+The sequence is \textit{exact} if and only if $\Im{\phi_{i+1}}=\ker{\phi_{i}}$
+An \textit{exact sequence} is a chain complex with trivial homology. We have a specific type of exact sequence called a \textit{short exact sequence} with the following form
+$$
+0\rightarrow A\xrightarrow{\Phi}B\xrightarrow{\Psi}C\rightarrow 0
+$$
+A sequence being short exact is equivalent to the following
+\begin{itemize}
+\item $\Phi$ is injective
+\item $\ker{\Psi} = \Im{\Phi}$
+\item $\Psi$ is surjective
+\end{itemize}
+\end{definition}
+We can now specialize this definition to chain complexes.
+\begin{definition}[Short exact sequence of chain complexes]
+	A sequence of chain complexes
+	\[
+	0 \longrightarrow (A_{\ast},\partial_{A})
+	\xrightarrow{\;\Phi_{\ast}\;}
+	(B_{\ast},\partial_{B})
+	\xrightarrow{\;\Psi_{\ast}\;}
+	(C_{\ast},\partial_{C})
+	\longrightarrow 0
+	\]
+	is \emph{short exact} if for every $p \in \mathbb{Z}$ the sequence
+	\[
+	0 \longrightarrow A_{p}
+	\xrightarrow{\;\Phi_{p}\;}
+	B_{p}
+	\xrightarrow{\;\Psi_{p}\;}
+	C_{p}
+	\longrightarrow 0
+	\]
+	is exact, and the boundary maps satisfy
+	\[
+	\partial_{B}\Phi_{p} = \Phi_{p-1}\partial_{A},
+	\qquad
+	\partial_{C}\Psi_{p} = \Psi_{p-1}\partial_{B}.
+	\]
+	
+	\noindent
+	This can be visualized as the following ``ladder'' of exact rows:
+	\[
+	\begin{array}{ccccccccc}
+		&  & \vdots &  & \vdots &  & \vdots &  & \\[-0.3em]
+		0 &\!\!\longrightarrow\!\!& A_{p+1} &\!\!\xrightarrow{\Phi_{p+1}}\!\!& B_{p+1} &\!\!\xrightarrow{\Psi_{p+1}}\!\!& C_{p+1} &\!\!\longrightarrow\!\!& 0 \\[0.3em]
+		&  & \;\;\downarrow\partial_{A} &  & \;\;\downarrow\partial_{B} &  & \;\;\downarrow\partial_{C} &  & \\[0.3em]
+		0 &\!\!\longrightarrow\!\!& A_{p} &\!\!\xrightarrow{\Phi_{p}}\!\!& B_{p} &\!\!\xrightarrow{\Psi_{p}}\!\!& C_{p} &\!\!\longrightarrow\!\!& 0 \\[0.3em]
+		&  & \downarrow\partial_{A} &  & \downarrow\partial_{B} &  & \downarrow\partial_{C} &  & \\[0.3em]
+		&  & \vdots &  & \vdots &  & \vdots &  &
+	\end{array}
+	\]
+\end{definition}
+
+
+\lecture{9}{Snake Lemma, more Homological Algebra and Applications to Algebraic Topology}
+\begin{lemma}
+Let
+$$
+0\rightarrow \alpha \xrightarrow{\Phi} \beta \xrightarrow{\Psi} \gamma \rightarrow 0
+$$
+Be a short exact sequence of chain complexes. Then there exists a family of homomorphisms
+$$
+H_{p}(\gamma)\xrightarrow{\partial_{*}}H_{p-1}(\alpha)
+$$
+such that the following is a long exact sequence
+$$
+...\rightarrow H_{p}(\alpha) \xrightarrow{\Phi_{*}} H_{p}(\beta) \xrightarrow{\Psi_{*}} H_{p}(\gamma) \xrightarrow{\partial_{*}} H_{p-1}(\alpha)\xrightarrow{\Phi_{*}}...
+$$
+where $\Phi_{*}$ and $\Psi_{*}$ are the homomorphisms induced by $\Phi$ and $\Psi$. This is called the snake lemma or zig-zag lemma.
+\end{lemma}
+\begin{proof}
+We define $\partial_{*}:H_{p}(\gamma)\to H_{p-1}(\delta)$ and consider $[e_{p}]\in H_{p}(\gamma)$ where $e_{p}$ is a cycle. Because $\Psi_{p}$ is surjective there exists $d_{p}$ such that $\Psi_{p}(d_{p}) = e_{p}$. Now consider $\partial_{D}(d_{p})$. By commutativity we have
+$$
+\Psi_{p-1}(\partial_{D}(d_{p})) = \partial_{E}(\Psi_{p}(d_{p})) = \partial_{E}e_{p} = 0
+$$
+So $\partial_{D}(d_{p})\in\ker{\Psi_{p-1}} = \Im{\Phi_{p-1}}$. Therefore there exists $c_{p-1}$ such that $\Phi_{p-1}(c_{p-1}) = \partial_{D}(d_{P})$. We define
+$$
+\partial_{*}([e_{p}]) = [c_{p-1}]
+$$
+Consider the following diagram for reference
+\[
+\begin{array}{ccccccccc}
+	&  & \vdots &  & \vdots &  & \vdots &  & \\[-0.3em]
+	0 &\!\!\longrightarrow\!\!& C_{p} &\!\!\xrightarrow{\boldsymbol{\Phi_{p}}}\!\!& \mathbf{D_{p}} &\!\!\xrightarrow{\boldsymbol{\Psi_{p}}}\!\!& \mathbf{E_{p}} &\!\!\longrightarrow\!\!& 0 \\[0.3em]
+	&  & \;\;\downarrow\partial_{C} &  & \;\;\mathbf{\downarrow\partial_{D}} &  & \;\;\mathbf{\downarrow\partial_{E}} &  & \\[0.3em]
+	0 &\!\!\longrightarrow\!\!& \mathbf{C_{p-1}} &\!\!\xrightarrow{\boldsymbol{\Phi_{p-1}}}\!\!& \mathbf{D_{p-1}} &\!\!\xrightarrow{\Psi_{p-1}}\!\!& E_{p-1} &\!\!\longrightarrow\!\!& 0 \\[0.3em]
+	&  & \;\;\downarrow\partial_{C} &  & \;\;\downarrow\partial_{D} &  & \;\;\downarrow\partial_{E} &  & \\[0.3em]
+	0 &\!\!\longrightarrow\!\!& C_{p-2} &\!\!\xrightarrow{\Phi_{p-2}}\!\!& D_{p-2} &\!\!\xrightarrow{\Psi_{p-2}}\!\!& E_{p-2} &\!\!\longrightarrow\!\!& 0 \\[0.3em]
+	&  & \vdots &  & \vdots &  & \vdots &  &
+\end{array}
+\]
+In the diagram, the connecting morphism is visualized as a path that moves 
+\emph{left, down, and left} across the rows and columns:
+\[
+E_p 
+\;\xleftarrow{\Psi_p}\;
+D_p 
+\;\xrightarrow{\partial_D}\;
+D_{p-1} 
+\;\xleftarrow{\Phi_{p-1}}\;
+C_{p-1}.
+\]
+Starting with a cycle in the top right ($E_p$), one moves left to $D_p$ using the surjectivity of 
+$\Psi_p$, then downward via the boundary $\partial_D$, and finally left again to $C_{p-1}$ using 
+the exactness of the lower row. 
+This ``zig--zag'' path through the commutative diagram visually represents the construction of the 
+connecting homomorphism $\partial_* : H_p(E)\to H_{p-1}(C)$. 
+We still need to prove $\partial_{*}([e_{p}]) = [c_{p-1}]$ is well defined but I skip that part of the proof. Its a few pages of work and not interesting.
+\end{proof}
+Now we consider the naturality of the long exact sequence in homology.
+\begin{theorem}
+Consider the following commutative diagram
+\[
+\begin{array}{ccccccccc}
+	0 & \longrightarrow & A & \xrightarrow{\Phi} & B & \xrightarrow{\Psi} & C & \longrightarrow & 0 \\[0.4em]
+	&                 & \downarrow \alpha     & \circlearrowright     & \downarrow \beta  & \circlearrowright      & \downarrow \gamma      &   \\[0.2em]
+	0 & \longrightarrow & D & \xrightarrow{\Phi'}& E & \xrightarrow{\Psi'}& F & \longrightarrow & 0
+\end{array}
+\]
+where the horizontal rows are short exact sequences of chain complexes and $\alpha,\beta,\gamma$ are chain maps. Then the following ladder of homology groups commutes.
+\[
+\begin{array}{ccccccccccccc}
+	\cdots & \longrightarrow &
+	H_p(A) & \xrightarrow{\Phi_*} &
+	H_p(B) & \xrightarrow{\Psi_*} &
+	H_p(C) & \xrightarrow{\partial_*} &
+	H_{p-1}(A) & \xrightarrow{\Phi_*} &
+	H_{p-1}(B) & \longrightarrow & \cdots \\[0.6em]
+	& & \downarrow \alpha_* & \circlearrowleft &
+	\downarrow \beta_* & \circlearrowleft &
+	\downarrow \gamma_* & \circlearrowleft &
+	\downarrow \alpha_* & \circlearrowleft &
+	\downarrow \beta_* &  & \\[0.4em]
+	\cdots & \longrightarrow &
+	H_p(D) & \xrightarrow{\Phi_*'} &
+	H_p(E) & \xrightarrow{\Psi_*'} &
+	H_p(F) & \xrightarrow{\partial_*'} &
+	H_{p-1}(D) & \xrightarrow{\Phi_*'} &
+	H_{p-1}(E) & \longrightarrow & \cdots
+\end{array}
+\]
+\end{theorem}
+We can now apply this to algebraic topology.
+\begin{theorem}
+Let $X$ be a topological space and $A\subseteq X$. Then there exists a homomorphism $\partial_{*}:H_{p}(X,A)\to H_{p-1}(A)$ such that
+$$
+...\rightarrow H_{p}(A)\xrightarrow{i_{*}}H_{p}(X)\xrightarrow{\pi_{*}}H_{p}(X,A)\xrightarrow{\partial_{*}}H_{p-1}(A)\rightarrow ...
+$$
+is a long exact sequence where $i_{*}$ is induced by $i:A\to X$. The map $\pi_{*}$ is induced by $$\pi_{\#}:S_{p}(X)\rightarrow\frac{S_{p}(X)}{S_{p}(A)} = S_{p}(X,A)$$
+$\pi_{*}$ is a chain map. Moreover if $A\neq \emptyset$ this holds for the reduced homology.
+$$
+...\rightarrow \tilde{H}_{p}(A)\rightarrow \tilde{H}_{p}(X)\rightarrow H_{p}(X,A)\rightarrow \tilde{H}_{p-1}(A)\rightarrow\tilde{H}_{p-1}(X)\rightarrow ...
+$$
+($\tilde{H}_{p}(X,A)$ does not exist). If $f(X,A)\to f(Y,B)$ is a continuous map then $f_{*}$ induces a chain map between the long exact sequence in homology
+\[
+\begin{array}{ccccccccccccc}
+	\cdots & \longrightarrow &
+	H_p(A) & \rightarrow &
+	H_p(X) & \rightarrow &
+	H_p(X,A) & \rightarrow&
+	H_{p-1}(A) & \longrightarrow & \cdots \\[0.6em]
+	& & \downarrow (f|_{A})_{*} & \circlearrowleft &
+	\downarrow f_{*} & \circlearrowleft &
+	\downarrow f_{*} & \circlearrowleft &
+	\downarrow (f|_{A})_{*}  & & \\[0.4em]
+	\cdots & \longrightarrow &
+	H_p(B) & \rightarrow &
+	H_p(Y) & \rightarrow &
+	H_p(Y,B) & \rightarrow&
+	H_{p-1}(B) & \longrightarrow & \cdots
+\end{array}
+\]
+\end{theorem}
+\noindent
+The groups $H_{p}(A)$, $H_{p}(X)$, and $H_{p}(X,A)$ measure related but distinct
+topological information. The absolute group $H_{p}(A)$ records $p$-dimensional
+holes contained entirely in $A$, while $H_{p}(X)$ records those of the whole
+space $X$. The relative group $H_{p}(X,A)$ measures the new $p$-dimensional
+features of $X$ that disappear when restricted to $A$, that is, the topology of
+$X$ \emph{relative} to $A$. The long exact sequence
+\[
+\cdots \rightarrow H_{p}(A) \xrightarrow{i_*} H_{p}(X)
+\xrightarrow{\pi_*} H_{p}(X,A) \xrightarrow{\partial_*} H_{p-1}(A)
+\rightarrow \cdots
+\]
+links these groups together and allows one to compute the homology of a pair
+from the homology of its parts. If $f:(X,A)\to(Y,B)$ is a continuous map, the
+induced maps on homology make the entire sequence commute, expressing the
+\emph{naturality} of the long exact sequence. This could be used, for example, when studying the circle as a subspace of the disc.
+
+\begin{exercise}
+	Consider the following commutative diagram of Abelian groups:
+	\[
+	\begin{array}{ccccccccc}
+		0 & \longrightarrow & A & \xrightarrow{\Phi_{1}} & B & \xrightarrow{\Psi_{1}} & C & \longrightarrow & 0 \\
+		& & \;\;\downarrow \alpha & & \;\;\downarrow \beta & & \;\;\downarrow \gamma & & \\
+		0 & \longrightarrow & D & \xrightarrow{\Phi_{2}} & E & \xrightarrow{\Psi_{2}} & F & \longrightarrow & 0
+	\end{array}
+	\]
+	Suppose that the two horizontal sequences are exact and prove that there exists an exact sequence of the following type:
+	\[
+	0 \longrightarrow \ker \alpha 
+	\xrightarrow{\Omega_{1}} \ker \beta 
+	\xrightarrow{\Omega_{2}} \ker \gamma 
+	\xrightarrow{\Omega_{3}} D / \alpha(A) 
+	\xrightarrow{\Omega_{4}} E / \beta(B) 
+	\xrightarrow{\Omega_{5}} F / \gamma(C) 
+	\longrightarrow 0.
+	\]
+	
+	\noindent\textbf{Hint.} This can be done either directly or by using the Snake Lemma; both proofs are interesting!
+	\solution{
+		\begin{center}
+\textcolor{red}{Insert Proof Here}			
+		\end{center}
+	}
+\end{exercise}
+\begin{exercise}
+	Prove the Snake Lemma.
+\end{exercise}
+\solution{
+\begin{center}
+\textcolor{red}{insert proof here}
+\end{center}
+}
+\lecture{10}{To Be Determined}
 \end{document}
