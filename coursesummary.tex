@@ -34,6 +34,7 @@
 \newtheorem*{exercise}{Exercise}
 \newtheorem*{proposition}{Proposition}
 \newtheorem*{corollary}{Corollary}
+\newtheorem*{remark}{Remark}
 
 
 % --- CUSTOM MACROS ---
@@ -626,20 +627,63 @@ $$
 So $x$ can only belong to the interior of one simplex of $K$
 \newline 
 
-Now we fix $v\in K^{(0)}$ and define $t_{v}:|K|\to\mathbb{R}$ as 
+Now we fix $v \in K^{(0)}$ and define $t_v : |K| \to \mathbb{R}$ by
 \[
-t_v(x)=
+t_v(x) =
 \begin{cases}
-	t_i, & \text{if } v = v_i\in \sigma \text{ and } x \in \operatorname{int}\sigma,\\[4pt]
-	0,      & \text{if } v \notin \sigma
+	t_i, & \text{if } v = v_i \in \sigma \text{ and } x \in \operatorname{int}\sigma, \\[4pt]
+	0,   & \text{if } v \notin \sigma.
 \end{cases}
 \]
-Choose $\sigma = \langle v_{0}v_{1},...,v_{k}\rangle$. If $v\notin\sigma$ then $(t_{v}|_{\sigma})(x) = 0$ for all $x$ in the interior of $\sigma$. This is just a constant map so it is continuous. 
-Now let $v\in\sigma$. We have that $t_{i}$ is a singleton in $\mathbb{R}$ so it is closed. If we take a look at the preimage of $t_{i}$ we have
-$$
-t_{v}^{-1}(t_{i}) = [a_{1i},a_{1f}]\times ... \times (t_{i}) \times ...\times[a_{pi},a_{pf}]
-$$
-where $a_{ij}$ is determined by the constraint $\sum_{i}^{p}t_{i}=1$. This is also closed in $\sigma$, which has the toplogy of $\mathbb{R}^{n}$. So $t_{v}(x)$ is continuous.
+Choose $\sigma = \langle v_0, v_1, \dots, v_p \rangle$. 
+If $v \notin \sigma$, then $(t_v|_{\sigma})(x) = 0$ for all $x$ in the interior of $\sigma$.
+This is a constant map, hence continuous.  
+
+Now fix $v_0 \in \sigma$ and consider $x, x' \in \sigma$.  
+Define the vectors
+\[
+\vec{x} = x - v_0 = \sum_{i=1}^{p} t_i (v_i - v_0) = \tilde{B}\,\vec{t}, 
+\qquad
+\vec{x}' = x' - v_0 = \sum_{i=1}^{p} t_i' (v_i - v_0) = \tilde{B}\,\vec{t}',
+\]
+where 
+\[
+\tilde{B} = [\,v_1 - v_0 \ \ v_2 - v_0 \ \ \cdots \ \ v_p - v_0\,],
+\quad
+\vec{t} = (t_1, \dots, t_p)^{\mathsf T}.
+\]
+Because the vertices of $\sigma$ are affinely independent, the columns of $\tilde{B}$ are linearly independent.
+Thus $\tilde{B}$ is invertible on its span, and we have
+\[
+\vec{t} - \vec{t}' = \tilde{B}^{-1} (\vec{x} - \vec{x}').
+\]
+Taking norms gives
+\[
+\|\vec{t} - \vec{t}'\| \le \|\tilde{B}^{-1}\|\,\|\vec{x} - \vec{x}'\|.
+\]
+Now consider
+\[
+|t_0 - t_0'|
+= \Big|\sum_{i=1}^p (t_i' - t_i)\Big|
+\le \sum_{i=1}^p |t_i' - t_i|
+= (1,\dots,1) \cdot (|t_1 - t_1'|, \dots, |t_p - t_p'|)
+\le \sqrt{p}\,\|\vec{t} - \vec{t}'\|
+\le \sqrt{p}\,\|\tilde{B}^{-1}\|\,\|\vec{x} - \vec{x}'\|.
+\]
+Finally, given $\varepsilon > 0$, choose
+\[
+\delta = \frac{\varepsilon}{\sqrt{p}\,\|\tilde{B}^{-1}\|}.
+\]
+Then, whenever $\|\vec{x} - \vec{x}'\| < \delta$, we have
+\[
+|t_{v_0}(x) - t_{v_0}(x')|
+= |t_0 - t_0'|
+\le \sqrt{p}\,\|\tilde{B}^{-1}\|\,\|\vec{x} - \vec{x}'\|
+< \sqrt{p}\,\|\tilde{B}^{-1}\| \cdot 
+\frac{\varepsilon}{\sqrt{p}\,\|\tilde{B}^{-1}\|}
+= \varepsilon.
+\]
+This holds for all $v_{i}$ so $t_{v}$ is continuous on $\sigma$.
 Because the function restricted to $\sigma$ is continuous for all $\sigma\in K$ we use the result of the first exercise to conclude that the function is continuous on the whole space.
  \end{enumerate}
 }
@@ -655,7 +699,19 @@ Because the function restricted to $\sigma$ is continuous for all $\sigma\in K$ 
 	\solution{	
 \begin{enumerate}
 \item Let $\sigma$ and $\sigma^{\prime}$ be disctinct simplexes in $|K|$. First, let $x,y$ be distinct points in $\sigma$. Because $\sigma$ inherits the topology of $\mathbb{R}^n$ and $\mathbb{R}^{n}$ is Hausdorff, there exists $U$ and $V$ disjoint sets in $\sigma$ such that $x\in U$ and $y\in V$. Now let $x\in \sigma$ and $y\in\sigma^{\prime}$. If $\sigma\cap\sigma^{\prime}=\emptyset$ then the Hausdorff criteria automatically follows. But if $\sigma\cap\sigma^{\prime}\neq\emptyset $ then either $x$ or $y$ or both are in $\sigma\cap\sigma^{\prime}$. In that case we invoke the Hausdorff property of $\mathbb{R}^{n}$ inherited by $\sigma\cap\sigma^{\prime}$. In all cases $|K|$ is Hausdorff.
-\item Path connected always imply connected. So we only need to prove that the connected components of $|K|$ are also path connected. \textcolor{red}{Finish proof}
+\item Path connected always imply connected. So we only need to prove that the connected components of $|K|$ are also path connected. Each simplex $\sigma \subset |K|$ is convex in $\mathbb{R}^n$, hence path-connected.
+If two simplices $\sigma$ and $\tau$ intersect, then $\sigma \cap \tau$ is a common face,
+which is also convex and therefore path-connected.
+Thus, $\sigma \cup \tau$ is path-connected.
+
+Now note that any two simplices of $K$ that intersect can be joined by a path through their
+common face.  
+If we can move from one simplex to another through a chain of intersecting simplices,
+then any two points in their union can be connected by a continuous path in $|K|$.
+Each connected component of $|K|$ is exactly such a union,
+and therefore is path-connected.
+Hence the connected components and path-connected components of $|K|$ coincide.
+
 \item Because the polytope $|K|$ is embedded in $\mathbb{R}^{n}$ we use the Heine-Borel theorem which states that compactness is equivalent to boundedness and closedness. Because the vertices $\{v\}$ in $|K|$ are geometrically independent, we subtract all vertices from $\vec{0}$ to get $\{\vec{v}\}$. Let $R = \max{||\vec{v}||}$ such that $\vec{v}\in\{\vec{v}\}$. Then we can bound the Polytope in a ball $B_{R}(0)$. So $|K|$ is bounded. Because each $\sigma$ is closed in $\mathbb{R}^{n}$, $|K|=\cup_{\sigma\in K}\sigma$ is also closed. It follows that $|K|$ is compact.
 \end{enumerate}
 \lecture{6}{Homology Group of A Cone and more Reduced Homology Group Properties}
@@ -697,7 +753,7 @@ Adding a cone to even a nonconnected subspace makes in contractible to a point. 
 	}
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=1.0\textwidth]{figures/homework3.pdf}
+		\includegraphics[width=0.7\textwidth]{figures/homework3.pdf}
 		\label{fig:my_diagram}
 \end{figure}
 \begin{exercise}
@@ -1193,6 +1249,30 @@ induced maps on homology make the entire sequence commute, expressing the
 \emph{naturality} of the long exact sequence. This could be used, for example, when studying the circle as a subspace of the disc.
 
 \begin{exercise}
+	Prove the Snake Lemma.
+\end{exercise}
+\solution{
+	\begin{center}
+		\textcolor{red}{insert proof here}
+	\end{center}
+\begin{exercise}
+	Let $X$ be a subset of $\mathbb{R}^n$ containing $w$ such that for all $x \in X$ 
+	the segment connecting $x$ and $w$ is contained in $X$ 
+	(the set $X$ is said to be \emph{stair-convex} with center $w$). 
+	Prove that $X$ is acyclic with respect to the singular homology.
+	
+	\medskip
+	\noindent
+	\textit{Hint:} recall that $z \in \Delta_{p+1}$ can be expressed as 
+	$z = t e_{p+1} + (1-t)z'$ where $z' \in \Delta_p$; 
+	given a singular $p$-simplex $\sigma : \Delta_p \to X$, 
+	one can construct a singular $(p+1)$-simplex 
+	$[w, \sigma] : \Delta_{p+1} \to X$ where 
+	$z = t e_{p+1} + (1-t)z' \in \Delta_{p+1}$ is mapped to 
+	$t w + (1-t)\sigma(z')$.
+\end{exercise}
+
+\begin{exercise}
 	Consider the following commutative diagram of Abelian groups:
 	\[
 	\begin{array}{ccccccccc}
@@ -1219,13 +1299,184 @@ induced maps on homology make the entire sequence commute, expressing the
 		\end{center}
 	}
 \end{exercise}
-\begin{exercise}
-	Prove the Snake Lemma.
-\end{exercise}
-\solution{
-\begin{center}
-\textcolor{red}{insert proof here}
-\end{center}
+
 }
-\lecture{10}{To Be Determined}
+\lecture{10}{Homotopy Review}
+\begin{definition}
+Let $X$ and $Y$ be topological spaces and let $f, g : X \to Y$ be continuous maps.  
+We say that $f$ and $g$ are \emph{homotopic}, written $f \simeq g$, if there exists a continuous map
+\[
+H : X \times [0,1] \to Y
+\]
+such that
+\[
+H(x,0) = f(x) \quad \text{and} \quad H(x,1) = g(x) \quad \text{for all } x \in X.
+\]
+The map $H$ is called a \emph{homotopy} between $f$ and $g$.
+\end{definition}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.3\textwidth]{figures/homotopy.png}
+	\label{fig:my_diagram}
+\end{figure}
+In other words, they map into the same space and can be deformed in to eachother without ever leaving the space. This homotopy which defines the fundamental group also helps us in homology.
+\begin{lemma}[Homotopy Lemma]
+	Let $f, g : X \to Y$ be continuous maps between topological spaces. 
+	If $f$ and $g$ are homotopic, then they induce the same homomorphism on homology:
+	\[
+	f_* = g_* : H_n(X) \to H_n(Y) \quad \text{for all } n \ge 0.
+	\]
+\end{lemma}
+This holds for the reduced and unreduced homology groups.
+\begin{corollary}[Homotopy Invariance of Homology]
+	If two topological spaces $X$ and $Y$ are homotopy equivalent, 
+	then they have isomorphic homology groups:
+	\[
+	H_p(X) \cong H_p(Y) \quad \text{for all } p \ge 0.
+	\]
+\end{corollary}
+The simplest spaces are described as contractible.
+\begin{definition}[Contractible Space]
+	A topological space $X$ is said to be \emph{contractible} if the identity map
+	\[
+	\mathrm{id}_X : X \to X
+	\]
+	is homotopic to a constant map $c_{x_0} : X \to X$, where $c_{x_0}(x) = x_0$ for some fixed point $x_0 \in X$.
+	\end{definition}
+	With the following definition we can connext contractible spaces to singular homology.
+\begin{remark}
+	A space $X$ is contractible if and only if the identity map 
+	$\mathrm{id}_X : X \to X$ is homotopic to a constant map 
+	$c_{x_0} : X \to X$, where $c_{x_0}(x) = x_0$ for some $x_0 \in X$.
+\end{remark}
+We conclude with the following corollary that connects homotopy and singular homology.
+\begin{corollary}
+A contractible space is acyclic.
+\end{corollary}
+\lecture{11}{Star Convexity, Excision Theorem and Homology of Spheres}
+\begin{definition}
+$X\subseteq\mathbb{R}^{n}$ is called a star convex set if $\exists x_{0}\in X$ such that every $x$ has a straight line that connects to it that is also contained in $X$
+\end{definition}
+\begin{remark}
+Every convex set in $\mathbb{R}^{n}$ is star convex, but not every star convex set is convex.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.3\textwidth]{figures/convex.png}
+	\label{fig:my_diagram}
+\end{figure}
+\end{remark}
+We are now ready to discuss the excision theorem.
+\begin{theorem}
+Let $X$ be a topological space and $A \subseteq X$. If $U\subseteq X$ and $\overline{U}\subseteq\text{Int}A$ then the inclusion map
+$$
+j: (X,A)(X\setminus U, A\setminus U)
+$$
+induces and isomorphism in homology 
+$$
+j_{*}:H_{p}(X\setminus U, A\setminus U)\to H_{p}(X,A)\ \forall p
+$$
+\end{theorem}
+The excision theorem means that if a subset $U$ lies entirely inside the interior of $A$,
+then removing $U$ from both $X$ and $A$ does not change the relative homology.
+In other words, the homology groups $H_p(X,A)$ depend only on how $A$ meets the boundary
+of $X$, not on what happens deep inside $A$.
+Thus, any region $U$ completely contained in $\mathrm{Int}(A)$ can be ``excised''
+without affecting the homology of the pair.
+\begin{definition}
+Let $X$ be a topological space and $\mu=\{U_{j}\}$ be a family of subsets of $X$ such that $X = \cup_{j}\text{Int}U_{j}$. A singular $\sigma:\Delta_{p}\to X$ is called $\mu-$small if there exists a $j_{0}$ such that $\sigma(\Delta_{p})\subseteq U_{j_{0}}$
+We define $S_{p}^{\mu}(X)$ as
+$$
+S_{p}^{\mu}(X) = \langle\sigma \text{is a p simplex}|\sigma\text{ is $\mu-$small}\rangle
+$$
+. $S_{p}^{\mu}(X)\subseteq S_{p}(X)$ is the group of $\mu-$small p-chains.
+\end{definition}
+The idea of $\mu$-small simplices is to control where each simplex lies with respect to
+an open cover $\mu=\{U_j\}$ of $X$.
+A simplex is called $\mu$-small if its entire image is contained in one element of the
+cover.
+Intuitively, this means the simplex is ``small enough'' not to cross between different
+sets of the cover.
+Such $\mu$-small chains form a subcomplex of the singular chain complex and are useful
+in the proof of the excision theorem.
+\begin{remark}
+	The boundary operator $\partial_p : S_p(X) \to S_{p-1}(X)$
+	preserves $\mu$-smallness.
+	Indeed, if $\sigma$ is $\mu$-small with
+	$\sigma(\Delta_p) \subseteq U_{j_0}$,
+	then each face of $\sigma$ also lies in $U_{j_0}$,
+	so $\partial_p\sigma$ is a $\mu$-small $(p-1)$-chain.
+	Hence, the subgroups $S_p^{\mu}(X)$ form a subchain complex of the singular chain complex:
+	\[
+	\cdots
+	\;\xrightarrow{\partial_{p+1}}\;
+	S_p^{\mu}(X)
+	\;\xrightarrow{\partial_p}\;
+	S_{p-1}^{\mu}(X)
+	\;\xrightarrow{\partial_{p-1}}\;
+	\cdots
+	\;\xrightarrow{\partial_1}\;
+	S_0^{\mu}(X)
+	\;\to\; 0.
+	\]
+\end{remark}
+We can define $H_{p}^{\mu}(X)$ as the homology groups of this chain complex. 
+\begin{theorem}
+	Let $X$ be a topological space and $\mu=\{U_j\}$ an open cover of $X$
+	such that $X = \bigcup_j \mathrm{Int}\,U_j$.
+	Then the inclusion of chain complexes
+	\[
+	i : S_*^{\mu}(X) \hookrightarrow S_*(X)
+	\]
+	induces an isomorphism in homology:
+	\[
+	i_* : H_p(S_*^{\mu}(X)) \xrightarrow{\;\cong\;} H_p(X)
+	\quad \text{for all } p \ge 0.
+	\]
+\end{theorem}
+We are now ready to prove the excision theorem, which we will use to calculate our first not trivial homology of the spheres $S^{n}$
+
+
+
+
+
+
+
+
+
+
+\newpage
+\lecture{X}{additional problems}
+
+
+\begin{exercise}
+	Let $X$ be a topological space and let $x_0 \in X$.  
+	Prove that for all $i \in \mathbb{Z}$ we have
+	\[
+	\widetilde{H}_i(X) \cong H_i(X, x_0).
+	\]
+\end{exercise}
+
+\begin{exercise}
+	Compute the homology groups of the following subspace of $\mathbb{R}^2$:
+	\[
+	\{(0, y) \in \mathbb{R}^2 \mid -1 \le y \le 1\} 
+	\;\cup\;
+	\{(x, \sin(1/x)) \in \mathbb{R}^2 \mid 0 < x \le 1\}.
+	\]
+\end{exercise}
+
+\begin{exercise}
+	Let $\Delta^3$ be the standard 3-simplex, and consider the topological space $X$ obtained by identifying the edge $[v_0, v_1]$ with the edge $[v_0, v_2]$ and $[v_1, v_3]$ with $[v_2, v_3]$.  
+	Prove that $S^2$ is a deformation retract of $X$.  
+	What identification of the edges of $\Delta^3$ gives a topological space having the torus $T^2$ as a deformation retract?  
+	And what identification gives the projective plane $\mathbb{RP}^2$?
+\end{exercise}
+
+\begin{exercise}
+	Find explicitly a generator of $H_1(S^1)$.
+\end{exercise}
+
+\begin{exercise}
+	Compute the homology groups of $\mathbb{RP}^2$.
+\end{exercise}
 \end{document}
