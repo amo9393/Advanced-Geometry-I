@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.7.25)  30 OCT 2025 11:46
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.7.25)  3 NOV 2025 17:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -664,6 +664,15 @@ LaTeX Warning: Label `fig:my_diagram' multiply defined.
 
 LaTeX Warning: Label `fig:my_diagram' multiply defined.
 
+
+LaTeX Warning: Label `fig:my_diagram' multiply defined.
+
+
+LaTeX Warning: Label `fig:my_diagram' multiply defined.
+
+
+LaTeX Warning: Label `fig:my_diagram' multiply defined.
+
 )
 \openout1 = `coursesummary.aux'.
 
@@ -1252,7 +1261,70 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[31] (./coursesummary.aux)
+[31]
+File: figures/SphereExcision.png Graphic file (type bmp)
+<figures/SphereExcision.png>
+
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[32]
+File: figures/retraction.png Graphic file (type bmp)
+<figures/retraction.png>
+
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[33]
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[34]
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[35]
+File: figures/topologistsinecurve.png Graphic file (type bmp)
+<figures/topologistsinecurve.png>
+
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[36]
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[37] (./coursesummary.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
@@ -1263,12 +1335,12 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 18769 strings out of 473832
- 418772 string characters out of 5729481
+ 18787 strings out of 473832
+ 419284 string characters out of 5729481
  850785 words of memory out of 5000000
- 41480 multiletter control sequences out of 15000+600000
+ 41496 multiletter control sequences out of 15000+600000
  568088 words of font info for 103 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  98i,17n,101p,781b,483s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on coursesummary.pdf (31 pages).
+Output written on coursesummary.pdf (37 pages).

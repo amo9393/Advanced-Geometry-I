@@ -11,4 +11,5 @@
 \contentsline {section}{Lecture 9: Snake Lemma, more Homological Algebra and Applications to Algebraic Topology}{25}{}%
 \contentsline {section}{Lecture 10: Homotopy Review}{28}{}%
 \contentsline {section}{Lecture 11: Star Convexity, Excision Theorem and Homology of Spheres}{29}{}%
-\contentsline {section}{Lecture X: additional problems}{31}{}%
+\contentsline {section}{Lecture 12: ???}{37}{}%
+\contentsline {section}{Lecture X: Beginning of Simplicial Homology}{37}{}%

@@ -1369,7 +1369,7 @@ We are now ready to discuss the excision theorem.
 \begin{theorem}
 Let $X$ be a topological space and $A \subseteq X$. If $U\subseteq X$ and $\overline{U}\subseteq\text{Int}A$ then the inclusion map
 $$
-j: (X,A)(X\setminus U, A\setminus U)
+j: (X,A)\to(X\setminus U, A\setminus U)
 $$
 induces and isomorphism in homology 
 $$
@@ -1433,21 +1433,401 @@ We can define $H_{p}^{\mu}(X)$ as the homology groups of this chain complex.
 	\quad \text{for all } p \ge 0.
 	\]
 \end{theorem}
-We are now ready to prove the excision theorem, which we will use to calculate our first not trivial homology of the spheres $S^{n}$
+We are now ready to prove the excision theorem, which we will use to calculate our first not trivial homology of the spheres $S^{n}$.
+\begin{proof}
+Let $X$ be a topological space, $A \subseteq X$, and $U \subseteq X$ an open subset
+such that $\overline{U} \subseteq \mathrm{Int}(A)$.
 
+We define the family
+\[
+\mu = \{A,\, X \setminus \overline{U}\}.
+\]
+We claim that $\mu$ satisfies the condition
+\[
+X = \mathrm{Int}(A) \,\cup\, \mathrm{Int}(X \setminus \overline{U}),
+\]
+which allows us to apply the $\mu$-small theorem.
 
+Indeed, since $\overline{U} \subseteq \mathrm{Int}(A)$, for any $x \in X$ we have two possibilities:
 
+\begin{itemize}
+	\item If $x \in \overline{U}$, then $x \in \mathrm{Int}(A)$.
+	\item If $x \notin \overline{U}$, then $x \in X \setminus \overline{U}
+	\subseteq \mathrm{Int}(X \setminus U)
+	\subseteq \mathrm{Int}(X \setminus \overline{U})$.
+\end{itemize}
+Thus every $x \in X$ belongs to $\mathrm{Int}(A) \cup \mathrm{Int}(X \setminus \overline{U})$,
+and therefore
+\[
+X = \mathrm{Int}(A) \cup \mathrm{Int}(X \setminus \overline{U}).
+\]
+This verifies that $\mu$ is an open cover of $X$ in the sense required by
+the $\mu$-small simplices theorem.
 
+Consequently, by the $\mu$-small theorem, the inclusion map
+$$
+i : S^{\mu}(X,A) \hookrightarrow S(X,A)
+$$
+induces an isomorphism in homology. Recall the definition of relative homology
+$$
+S^{\mu}(X,A)= \frac{S^{\mu}(X)}{S^{\mu}(A)}
+$$. Now the claim is that this inclusion map is an isomorphsim
+$$
+\frac{S_{p}(X\setminus U)}{S_{p}(A\setminus U)}\to\frac{S_{p}(X)}{S_{p}(A)}$$ is an isomporphism.
+To prove this we first define the auxilary map
+\[
+\phi : S_p(X \setminus U) \longrightarrow \frac{S_p^{\mu}(X)}{S_p^{\mu}(A)}
+\]
+as the composition of the inclusion and projection maps:
+\[
+S_p(X \setminus U)
+\;\xrightarrow{\;\text{inclusion}\;}\;
+S_p^{\mu}(X)
+\;\xrightarrow{\;\text{projection}\;}\;
+\frac{S_p^{\mu}(X)}{S_p^{\mu}(A)}.
+\]
+That is,
+\[
+\phi = \text{projection} \circ \text{inclusion}.
+\]
+Now let
+\[
+c_p + S_p^{\mu}(A) \;\in\; \frac{S_p^{\mu}(X)}{S_p^{\mu}(A)}.
+\]
+Then $c_p$ is a $\mu$-small chain. Hence $c_p$ is a sum of simplices
+whose images are contained either in $A$ or in $X \setminus U$.
 
+If $\sigma_i : \Delta_p \to X$ is one such simplex and
+$\sigma_i(\Delta_p) \subseteq A$, then
+\[
+\sigma_i + S_p^{\mu}(A) = S_p^{\mu}(A)
+\quad\text{in}\quad \frac{S_p^{\mu}(X)}{S_p^{\mu}(A)}.
+\]
 
+Therefore, there exists a chain
+\[
+c_p' = \sum \text{(simplices with image contained in $X \setminus U$)}
+\]
+such that
+\[
+c_p' + S_p^{\mu}(A) = c_p + S_p^{\mu}(A).
+\]
 
+We note that $c_p' \in S_p(X \setminus U)$, and
+\[
+\phi(c_p') = c_p' + S_p^{\mu}(A)
+= c_p + S_p^{\mu}(A).
+\]
+Hence $\phi$ is surjective.
+We now claim that
+\[
+\ker \phi = S_p(A \setminus U).
+\]
 
+\textbf{($\subseteq$ direction).}
+Let $c_p \in S_p(A \setminus U)$.
+Then by definition,
+\[
+\phi(c_p)
+= c_p + S_p^{\mu}(A)
+= S_p^{\mu}(A)
+= 0
+\quad \text{in } \frac{S_p^{\mu}(X)}{S_p^{\mu}(A)}.
+\]
+Hence $c_p \in \ker \phi$.
 
+\medskip
 
-\newpage
-\lecture{X}{additional problems}
+\textbf{($\supseteq$ direction).}
+Let $c_p \in S_p(X \setminus U)$ such that
+\[
+\phi(c_p) = c_p + S_p^{\mu}(A) = 0.
+\]
+This means $c_p \in S_p^{\mu}(A)$.
 
+Therefore, every simplex of $c_p$ has image contained in $A$.
+Since $c_p \in S_p(X \setminus U)$ as well, the images of its simplices
+are disjoint from $U$.
+Combining these two facts, we conclude that
+\[
+c_p \in S_p(A \setminus U).
+\]
 
+\medskip
+
+Thus both inclusions hold, and therefore
+\[
+\ker \phi = S_p(A \setminus U).
+\]
+By the First Isomorphism Theorem, since $\ker\phi=S_p(A\setminus U)$ and $\phi$ is surjective, we have
+$$
+\frac{S_{p}(X\setminus U)}{S_{p}(A\setminus U)} \cong \frac{S_{p}(X)}{S_{p}(A)} = S_{p}(X,A)
+$$
+Passing to homology, this chain-level isomorphism induces
+\[
+\overline{\phi}_* : H_p(X\setminus U,\, A\setminus U)
+\;\xrightarrow{\;\cong\;}\;
+H_p^{\mu}(X,A).
+\]
+Since the inclusion $i : S_*^{\mu}(X,A) \hookrightarrow S_*(X,A)$
+induces an isomorphism in homology by the $\mu$-small theorem,
+we obtain that
+\[
+j_* = i_* \circ \phi_* :
+H_p(X\setminus U,\, A\setminus U)
+\;\xrightarrow{\;\cong\;}\;
+H_p(X,A)
+\]
+for all $p$.
+\end{proof}
+So if we are studying the relative homology of a space, we can remove a piece of the contained entirely withint the subset without affecting the homology groups. This will allow to get homology groups for the spheres.
+\begin{theorem}
+$$
+\tilde{H}_{i}(S^{n}) = 0 \text{ if } i\neq n
+$$
+When $i=n$
+$$
+\tilde{H}_{i}(S^{n}) = \mathbb{Z}
+$$
+\end{theorem}
+\begin{proof}
+We proceed by induction. For $n=0$, we have the space $S^{0}=\{-1,1\}$. This is a disjoint space so 
+$$
+H_{0}(S^{0}) \cong H_{0}(-1)\oplus H_{0}(1) \cong \mathbb{Z}\oplus\mathbb{Z} \Rightarrow \tilde{H}_{0}(S^{0})\cong \mathbb{Z}
+$$
+All the higher homology groups are zero because the points are 0 dimensional. Now we proceed to the inductive step. For $n>0$, we have \[
+S^{n}
+=\left\{
+x=(x_0,x_1,\dots,x_n)\in\mathbb{R}^{n+1}
+\;\middle|\;
+\sum_{i=0}^{n}x_i^2=1
+\right\}.
+\]
+We also define 
+the upper hemisphere:
+$$
+E_+^{\,n}
+=\left\{
+(x_0,x_1,\dots,x_n)\in S^{n}
+\;\middle|\;
+x_n \ge 0
+\right\}.
+$$
+and
+thelower hemisphere:
+$$
+E_-^{\,n}
+=\left\{
+(x_0,x_1,\dots,x_n)\in S^{n}
+\;\middle|\;
+x_n \le 0
+\right\}.
+$$
+with their 
+common boundary (the ``equator''):
+$$
+S^{n-1}
+=\left\{
+(x_0,x_1,\dots,x_n)\in S^{n}
+\;\middle|\;
+x_n = 0
+\right\} = E^{n}_{+}\cap E^{n}_{-}
+$$
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{figures/SphereExcision.png}
+	\label{fig:my_diagram}
+\end{figure}
+We also define the south pole $q  = \{-1,0,...,0\}$. The next step requires a  couple of definitions which we put here in the middle of this proof.
+\begin{definition}[Retraction]
+	Let $X$ be a topological space and let $A \subseteq X$ be a subspace.  
+	A continuous map 
+	\[
+	r : X \to A
+	\]
+	is called a \emph{retraction} if 
+	\[
+	r|_A = \operatorname{Id}_A.
+	\]
+	In this case, $A$ is called a \emph{retract} of $X$.
+\end{definition}
+
+\begin{remark}
+	Let $i : A \hookrightarrow X$ denote the inclusion map.  
+	Then $r : X \to A$ is a retraction if and only if 
+	\[
+	r \circ i = \operatorname{Id}_A.
+	\]
+\end{remark}
+
+\begin{definition}[Deformation Retraction]
+	A retraction $r : X \to A$ is called a \emph{deformation retraction} if the composition
+	\[
+	i \circ r : X \to X
+	\]
+	is homotopic to the identity map $\operatorname{Id}_X$, i.e.
+	\[
+	i \circ r \simeq \operatorname{Id}_X.
+	\]
+	In this case, we say that $A$ is a \emph{deformation retract} of $X$.
+\end{definition}
+
+\begin{remark}
+	A deformation retraction is a special kind of homotopy equivalence.
+\end{remark}
+Our next step is to establish
+\[
+H_i(E^{n}_{+}, S^{n-1})
+\;\xrightarrow[\text{isom.}]{\cong}\;
+H_{i-1}(S^{n-1}), 
+\quad \forall i.
+\]
+by finding a long exact sequence in Homology for the pair $(E^{n}_{+},S^{n-1})$.
+Since $S^{n-1}$ is a subspace of the closed upper hemisphere $E_+^{\,n}$, 
+we can consider the homology of the pair $(E_+^{\,n},S^{n-1})$. 
+From the definition of relative homology, there is a long exact sequence connecting 
+the homology of the subspace, the total space, and the pair:
+\[
+\cdots \longrightarrow 
+H_i(S^{n-1})
+\xrightarrow{i_*}
+H_i(E_+^{\,n})
+\xrightarrow{j_*}
+H_i(E_+^{\,n},S^{n-1})
+\xrightarrow{\partial}
+H_{i-1}(S^{n-1})
+\xrightarrow{i_*}
+H_{i-1}(E_+^{\,n})
+\longrightarrow \cdots
+\]
+
+Because $E_+^{\,n}$ is homeomorphic to a closed $n$-disk, it is contractible and therefore has
+\[
+H_i(E_+^{\,n}) =
+\begin{cases}
+	\mathbb{Z}, & i = 0,\\
+	0, & i > 0.
+\end{cases}
+\]
+Substituting this into the sequence gives, for all $i \ge 2$,
+\[
+0 \longrightarrow H_i(E_+^{\,n},S^{n-1})
+\xrightarrow{\;\partial\;}
+H_{i-1}(S^{n-1})
+\longrightarrow 0,
+\]
+so that
+\[
+H_i(E_+^{\,n},S^{n-1}) \cong H_{i-1}(S^{n-1}).
+\]
+The remaining low-degree terms can be checked similarly, confirming that the same relationship holds for all $i$. 
+Hence we obtain
+\[
+H_i(E_+^{\,n}, S^{n-1})
+\;\xrightarrow[\text{isom.}]{\cong}\;
+H_{i-1}(S^{n-1}), 
+\quad \forall i.
+\]
+Next, we relate the pair $(E^{n}_{+},S^{n-1})$ to the sphere $S^{n}$ itself. 
+Consider the inclusion 
+\[
+i : E_+^{\,n} \hookrightarrow S^n \setminus \{q\}
+\]
+and define a map
+\[
+r : S^n \setminus \{q\} \longrightarrow E_+^{\,n}
+\]
+by projecting each point of the lower hemisphere along its great circle through $q$ to the upper hemisphere. 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{figures/retraction.png}
+	\label{fig:my_diagram}
+\end{figure}
+Geometrically, $r$ fixes every point of $E_+^{\,n}$ and sends the lower hemisphere continuously onto it. 
+This map satisfies
+\[
+r \circ i = \operatorname{Id}_{E_+^{\,n}},
+\qquad 
+i \circ r \simeq \operatorname{Id}_{S^n \setminus \{q\}},
+\]
+so $r$ is a deformation retraction of $S^n \setminus \{q\}$ onto $E_+^{\,n}$.
+Because $r$ restricts to the identity on the common boundary $S^{n-1}$, 
+it induces a homotopy equivalence of pairs:
+\[
+r : (S^n \setminus \{q\}, E_+^{\,n} \setminus \{q\})
+\;\simeq\;
+(E_+^{\,n}, S^{n-1}).
+\]
+By the homotopy invariance of homology, this gives
+\[
+H_i(E_+^{\,n}, S^{n-1})
+\;\xrightarrow[\text{isom.}]{r_*}\;
+H_i(S^n \setminus \{q\}, E_+^{\,n} \setminus \{q\}),
+\quad \forall i.
+\]
+We also consider the pair $(E_+^{\,n},S^{n-1})$ to $(S^n,E_-^{\,n})$ and  the long exact sequence in reduced homology
+\[
+\cdots \longrightarrow 
+\tilde{H}_i(E_-^{\,n})
+\longrightarrow 
+\tilde{H}_i(S^n)
+\longrightarrow 
+H_i(S^n,E_-^{\,n})
+\longrightarrow 
+\tilde{H}_{i-1}(E_-^{\,n})
+\longrightarrow \cdots
+\]
+Since $E_-^{\,n}$ is also contractible, we have 
+$\tilde{H}_i(E_-^{\,n}) = 0$ for all $i$, and the sequence reduces to
+\[
+\tilde{H}_i(S^n)
+\;\xrightarrow[\text{isom.}]{\;\;\;\;\;}
+H_i(S^n,E_-^{\,n}),
+\quad \forall i.
+\]
+Next, we apply the Excision Theorem
+Taking $X = S^n$, $A = E_-^{\,n}$, and $U$ to be a small neighborhood of the south pole $q$, 
+we have $\overline{U} \subset \operatorname{Int}(E_-^{\,n})$, so excision yields
+\[
+H_i(S^n,E_-^{\,n}) \;\cong\; H_i(S^n \setminus \{q\}, E_+^{\,n} \setminus \{q\}).
+\]
+Combining this with the previous isomorphism gives
+\[
+H_i(S^n,E_-^{\,n})
+\;\cong\;
+H_i(E_+^{\,n},S^{n-1}).
+\]
+From the inductive step, we already know that
+\[
+H_i(E_+^{\,n},S^{n-1}) \cong H_{i-1}(S^{n-1}).
+\]
+Therefore,
+\[
+\tilde{H}_i(S^n)
+\;\cong\;
+H_i(S^n,E_-^{\,n})
+\;\cong\;
+H_i(E_+^{\,n},S^{n-1})
+\;\cong\;
+H_{i-1}(S^{n-1}),
+\]
+which completes the induction.  
+\[
+H_{i-1}(S^{n-1}) =
+\begin{cases}
+	\mathbb{Z}, & i-1 = n-1,\\
+	0, & \text{otherwise}.
+\end{cases}
+\]
+Hence
+\[
+\tilde{H}_i(S^n) =
+\begin{cases}
+	\mathbb{Z}, & i = n,\\
+	0, & i \neq n.
+\end{cases}
+\]
+\end{proof}
 \begin{exercise}
 	Let $X$ be a topological space and let $x_0 \in X$.  
 	Prove that for all $i \in \mathbb{Z}$ we have
@@ -1455,7 +1835,161 @@ We are now ready to prove the excision theorem, which we will use to calculate o
 	\widetilde{H}_i(X) \cong H_i(X, x_0).
 	\]
 \end{exercise}
+\solution{
+	Since we aim to find an isomorphism between homology groups, it is enough to construct an
+	isomorphism between the corresponding chain complexes. Because reduced homology only differs from ordinary homology in degree $n=0$, we start with the
+	simpler case $n>0$. For each $n \ge 0$, the group $S_n(X)$ consists of all finite integer combinations of singular
+	$n$-simplices in $X$.  Concretely, a typical element of $S_n(X)$ is
+	\[
+	c = a_1\sigma_1 + a_2\sigma_2 + \cdots + a_k\sigma_k,
+	\]
+	where each $\sigma_i : \Delta^n \to X$ is a continuous map (called a singular simplex) and
+	$a_i \in \mathbb{Z}$ are integer coefficients.  
+	We can think of $c$ as a formal sum of oriented $n$–dimensional pieces drawn in $X$. The boundary operator $\partial_n : S_n(X) \to S_{n-1}(X)$ is defined on each simplex by
+	\[
+	\partial_n(\sigma)
+	= \sum_{i=0}^n (-1)^i\, \sigma|_{[v_0,\dots,\widehat{v_i},\dots,v_n]},
+	\]
+	that is, the alternating sum of its $(n-1)$–dimensional faces.
+	Extending this linearly gives the full chain complex
+	\[
+	\dots \xrightarrow{\partial_{n+1}} 
+	S_n(X)
+	\xrightarrow{\partial_n}
+	S_{n-1}(X)
+	\xrightarrow{\partial_{n-1}}
+	\dots
+	\xrightarrow{\partial_1}
+	S_0(X) \to 0.
+	\]
+	Now we fix a basepoint $x_0 \in X$.  
+	Among all singular simplices $\sigma : \Delta^n \to X$,
+	there are the constant ones that send every point of $\Delta^n$
+	to $x_0$.  Each such map $\sigma_{x_0}$ is ``entirely collapsed'' inside $x_0$ and has no geometric
+	extent.  We denote by $S_n(x_0)$ the set of all integer combinations of these constant simplices:
+	\[
+	S_n(x_0) = 
+	\{\,a_1\sigma_{x_0}^{(1)} + \cdots + a_m\sigma_{x_0}^{(m)} \mid a_i \in \mathbb{Z}\,\}.
+	\]
+	Since all constant simplices have the same image point $x_0$, this group is essentially
+	a copy of $\mathbb{Z}$ sitting inside $S_n(X)$.
+	The relative chain group is the quotient
+	\[
+	S_n(X,x_0) = S_n(X) / S_n(x_0).
+	\]
+	This means that in $S_n(X,x_0)$ we identify any two chains that differ by an element of
+	$S_n(x_0)$.  Equivalently, we declare all chains lying completely inside the point $x_0$ to be zero.
+	Formally, for a chain $c \in S_n(X)$, its equivalence class is
+	\[
+	[c] = c + S_n(x_0)
+	= \{\,c + d \mid d \in S_n(x_0)\,\}.
+	\]
+	Two chains $c_1,c_2 \in S_n(X)$ represent the same element of $S_n(X,x_0)$
+	if and only if $c_1 - c_2$ consists entirely of constant simplices at $x_0$.  For $n>0$, we now define
+	\[
+	\Phi_n : \widetilde{S}_n(X) =S_n(X)
+	\longrightarrow S_n(X,x_0)
+	\]
+	by sending each chain to its equivalence class modulo the constant simplices:
+	\[
+	\Phi_n(c) = [c] = c + S_n(x_0).
+	\]
+	Explicitly, on a single simplex $\sigma$,
+	\[
+	\Phi_n(\sigma) =
+	\begin{cases}
+		[\sigma], & \text{if $\sigma$ is not constant},\\[4pt]
+		0, & \text{if $\sigma(t) = x_0$ for all $t$.}
+	\end{cases}
+	\]
+	Linearly extending this rule to sums of simplices gives $\Phi_n(c) = \sum_i a_i[\sigma_i]$.
+	Geometrically, $\Phi_n$ simply ``forgets'' any collapsed simplices sitting at the basepoint. Now we check that $\Phi_{n}$ is an isomorphism. Every element of $S_n(X,x_0)$ is by definition an equivalence class $[c]$ with
+	$c \in S_n(X)$.  But $\Phi_n(c) = [c]$ for all $c$, so every class is hit.
+	Hence $\Phi_n$ is surjective. Now 
+	suppose $\Phi_n(c) = 0$.  
+	Then $[c] = 0$ in the quotient, which means $c \in S_n(x_0)$.  
+	But $S_n(x_0)$ consists precisely of chains supported entirely at $x_0$, which
+	are declared to be zero in both theories for $n>0$.  
+	Thus $\Phi_n$ has trivial kernel, and it is injective. So $\Phi$ is an isomorphism. But we need it to comput with the boundary opearator to have a chain complex.
+	For any $c \in S_n(X)$ we have
+	\[
+	\Phi_{n-1}(\partial_n c)
+	= [\,\partial_n c\,]
+	= \partial^{\mathrm{rel}}_n([c])
+	= \partial^{\mathrm{rel}}_n(\Phi_n(c)).
+	\]
+	Hence $\Phi$ commutes with the boundary operator, and therefore is a chain map.
+Now we must adress $n=0$.
+	Here, reduced chains differ from ordinary ones:
+	\[
+	\widetilde{S}_0(X) = \ker(\varepsilon : S_0(X)\to\mathbb{Z}), \qquad
+	\varepsilon\!\left(\sum_i a_i[x_i]\right) = \sum_i a_i.
+	\]
+	This means $\widetilde{S}_0(X)$ consists of integer combinations of points whose total coefficient is
+	zero---in other words, formal differences of points in $X$.  We define
+	\[
+	\Phi_0 : \widetilde{S}_0(X) \longrightarrow S_0(X,x_0)
+	\]
+	by the same rule $\Phi_0(c) = [c] = c + S_0(x_0)$.
+	To see that this is an isomorphism, note that every class $[c]\in S_0(X,x_0)$ has a representative $c' = c - m[x_0]$
+	with $\varepsilon(c')=0$, so $\Phi_0$ is surjective.
+If $c\in\ker\varepsilon$ and $\Phi_0(c)=0$, then $c\in S_0(x_0)$,
+	hence $c=k[x_0]$ for some $k\in\mathbb{Z}$.
+	But $\varepsilon(c)=k=0$, so $c=0$.  
+	Thus $\Phi_0$ is injective. Therefore $\Phi_0$ is also an isomorphism.
+	
+Since we have an isomorphism between the chain complexes
+	\[
+	\Phi_* : \widetilde{S}_*(X) \;\xrightarrow{\;\cong\;}\; S_*(X,x_0),
+	\]
+	we also have isomorphisms between the corresponding homology groups
+	\[
+	\widetilde{H}_i(X) \;\cong\; H_i(X,x_0)
+	\qquad \text{for all } i \in \mathbb{Z}.
+	\]
+This means that reduced Intuitively, the reduced homology groups $\widetilde{H}_n(X)$ remove the redundant information
+that ordinary homology $H_n(X)$ carries about the mere existence of a point.
+In standard homology, each connected component contributes a copy of $\mathbb{Z}$ in degree $0$,
+coming from constant simplices that collapse the whole space to a single point.
+Reduced homology ``forgets'' this trivial contribution, keeping only the part that reflects the
+actual shape of $X$.
+Thus both $\widetilde{H}_n(X)$ and $H_n(X,x_0)$ describe the same essential topological
+information: they ignore the simplices supported entirely at the basepoint and record only how
+$X$ differs from a single point.
+}
 
+\begin{exercise}
+	Compute the homology groups of the following subspace of $\mathbb{R}^2$:
+	\[
+	A = \{(0, y) \mid -1 \le y \le 1\} 
+	\;\cup\;
+	\{(x, \sin(1/x)) \mid 0 < x \le 1\}.
+	\]
+\end{exercise}
+
+\solution{
+	This is the topologist's sine curve mentioned the Intermezzo 2.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{figures/topologistsinecurve.png}
+	\label{fig:my_diagram}
+\end{figure}
+It is connected but not path connected and has two components.
+\[
+C_1 = \{(0, y) \mid -1 \le y \le 1\} 
+\qquad
+C_2 =\{(x, \sin(1/x)) \mid 0 < x \le 1\}.
+\]
+Each path component is contractible to a point. So 
+$$
+H_{0}= \mathbb{Z}\oplus\mathbb{Z}
+$$
+We see that there are no closed loops to make a cycles that are not boundaries, so 
+$$
+H_{1} = 0
+$$
+Since it is a 1 dimenstional surface embedded in $\mathbb{R}^{2}$ all higher homology groups are zero. This emphasizes the fact that $H_{0}$ is measuring path components, not components. We must be careful when these don't coincide.
+}
 \begin{exercise}
 	Compute the homology groups of the following subspace of $\mathbb{R}^2$:
 	\[
@@ -1465,15 +1999,18 @@ We are now ready to prove the excision theorem, which we will use to calculate o
 	\]
 \end{exercise}
 
+
+
+\begin{exercise}
+	Find explicitly a generator of $H_1(S^1)$.
+\end{exercise}
+\lecture{12}{???}
+\lecture{X}{Beginning of Simplicial Homology}
 \begin{exercise}
 	Let $\Delta^3$ be the standard 3-simplex, and consider the topological space $X$ obtained by identifying the edge $[v_0, v_1]$ with the edge $[v_0, v_2]$ and $[v_1, v_3]$ with $[v_2, v_3]$.  
 	Prove that $S^2$ is a deformation retract of $X$.  
 	What identification of the edges of $\Delta^3$ gives a topological space having the torus $T^2$ as a deformation retract?  
 	And what identification gives the projective plane $\mathbb{RP}^2$?
-\end{exercise}
-
-\begin{exercise}
-	Find explicitly a generator of $H_1(S^1)$.
 \end{exercise}
 
 \begin{exercise}
