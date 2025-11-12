@@ -652,8 +652,8 @@ where
 \quad
 \vec{t} = (t_1, \dots, t_p)^{\mathsf T}.
 \]
-Because the vertices of $\sigma$ are affinely independent, the columns of $\tilde{B}$ are linearly independent.
-Thus $\tilde{B}$ is invertible on its span, and we have
+Because the vertices of $\sigma$ are geometrically independent, the columns of $\tilde{B}$ are linearly independent.
+Thus $\tilde{B}$ is invertible and we have
 \[
 \vec{t} - \vec{t}' = \tilde{B}^{-1} (\vec{x} - \vec{x}').
 \]
@@ -661,7 +661,7 @@ Taking norms gives
 \[
 \|\vec{t} - \vec{t}'\| \le \|\tilde{B}^{-1}\|\,\|\vec{x} - \vec{x}'\|.
 \]
-Now consider
+Because $t_{0} = 1 - \sum_{i=1}^{p}t_{i}$ we have
 \[
 |t_0 - t_0'|
 = \Big|\sum_{i=1}^p (t_i' - t_i)\Big|
@@ -1112,7 +1112,7 @@ We can now specialize this definition to chain complexes.
 \end{definition}
 
 
-\lecture{9}{Snake Lemma, more Homological Algebra and Applications to Algebraic Topology}
+\lecture{9}{Zig-Zag Lemma, more Homological Algebra and Applications to Algebraic Topology}
 \begin{lemma}
 Let
 $$
@@ -1126,7 +1126,7 @@ such that the following is a long exact sequence
 $$
 ...\rightarrow H_{p}(\alpha) \xrightarrow{\Phi_{*}} H_{p}(\beta) \xrightarrow{\Psi_{*}} H_{p}(\gamma) \xrightarrow{\partial_{*}} H_{p-1}(\alpha)\xrightarrow{\Phi_{*}}...
 $$
-where $\Phi_{*}$ and $\Psi_{*}$ are the homomorphisms induced by $\Phi$ and $\Psi$. This is called the snake lemma or zig-zag lemma.
+where $\Phi_{*}$ and $\Psi_{*}$ are the homomorphisms induced by $\Phi$ and $\Psi$. This is called the or zig-zag lemma.
 \end{lemma}
 \begin{proof}
 We define $\partial_{*}:H_{p}(\gamma)\to H_{p-1}(\delta)$ and consider $[e_{p}]\in H_{p}(\gamma)$ where $e_{p}$ is a cycle. Because $\Psi_{p}$ is surjective there exists $d_{p}$ such that $\Psi_{p}(d_{p}) = e_{p}$. Now consider $\partial_{D}(d_{p})$. By commutativity we have
@@ -1168,7 +1168,7 @@ connecting homomorphism $\partial_* : H_p(E)\to H_{p-1}(C)$.
 We still need to prove $\partial_{*}([e_{p}]) = [c_{p-1}]$ is well defined but I skip that part of the proof. Its a few pages of work and not interesting.
 \end{proof}
 Now we consider the naturality of the long exact sequence in homology.
-\begin{theorem}
+\begin{theorem}[Naturality of the Long Exact Sequence in Homology]
 Consider the following commutative diagram
 \[
 \begin{array}{ccccccccc}
@@ -1251,10 +1251,92 @@ induced maps on homology make the entire sequence commute, expressing the
 \begin{exercise}
 	Prove the Snake Lemma.
 \end{exercise}
-\solution{
-	\begin{center}
-		\textcolor{red}{insert proof here}
-	\end{center}
+\solution{The Snake Lemma is the more general group theoretic version of zig-zag lemma. ChatGPT gave me this proof, I didn't want to do it. It is exceptionally brutal and purely algebraic.  Let
+	\[
+	\begin{array}{ccccccccc}
+		0 &\longrightarrow& A &\xrightarrow{\ \Phi\ }& B &\xrightarrow{\ \Psi\ }& C &\longrightarrow& 0 \\
+		&                 & \downarrow \alpha & & \downarrow \beta & & \downarrow \gamma & & \\
+		0 &\longrightarrow& D &\xrightarrow{\ \Phi'\ }& E &\xrightarrow{\ \Psi'\ }& F &\longrightarrow& 0
+	\end{array}
+	\]
+	be a commutative diagram of Abelian groups with exact rows. Then there is a natural exact sequence
+	\[
+	0 \longrightarrow \ker\alpha \xrightarrow{\ \overline{\Phi}\ } \ker\beta
+	\xrightarrow{\ \overline{\Psi}\ } \ker\gamma
+	\xrightarrow{\ \delta\ } \operatorname{coker}\alpha
+	\xrightarrow{\ \overline{\Phi'}\ } \operatorname{coker}\beta
+	\xrightarrow{\ \overline{\Psi'}\ } \operatorname{coker}\gamma
+	\longrightarrow 0,
+	\]
+	where $\overline{\Phi},\overline{\Psi}$ are restrictions, $\overline{\Phi'},\overline{\Psi'}$ are maps induced on cokernels, and $\delta$ is the \emph{connecting homomorphism} defined below.
+\newline
+
+First we start with  $\delta:\ker\gamma\to \operatorname{coker}\alpha$.}
+	Let $c\in \ker\gamma\subseteq C$. Since $\Psi$ is surjective, pick $b\in B$ with $\Psi(b)=c$.
+	Commutativity gives $\Psi'(\beta(b))=\gamma(\Psi(b))=\gamma(c)=0$, hence $\beta(b)\in\ker\Psi'=\operatorname{im}\Phi'$ (by exactness). So choose $d\in D$ with $\Phi'(d)=\beta(b)$. Define
+	\[
+	\delta(c):=[d]\ \in\ \operatorname{coker}\alpha=D/\operatorname{im}\alpha.
+	\]
+	
+Now we check well-definedness.
+	If $b$ and $b'$ both map to $c$, then $b-b'\in\ker\Psi=\operatorname{im}\Phi$, say $b-b'=\Phi(a)$.
+	Applying $\beta$ and using commutativity:
+	\[
+	\beta(b)-\beta(b')=\beta(\Phi(a))=\Phi'(\alpha(a)),
+	\]
+	so the corresponding $d,d'$ differ by an element of $\operatorname{im}\alpha$, hence $[d]=[d']$ in $D/\operatorname{im}\alpha$. Thus $\delta$ is well-defined and is a homomorphism.
+	\newline
+	
+	Now check exactness of the following sequence
+	 $\ker\alpha\to\ker\beta\to\ker\gamma$
+	The map $\overline{\Phi}:\ker\alpha\to\ker\beta$ is $x\mapsto \Phi(x)$; it lands in $\ker\beta$
+	since $\beta(\Phi(x))=\Phi'(\alpha(x))=0$. Injectivity: if $\Phi(x)=0$ then $x=0$ by exactness.
+	Next, $\overline{\Psi}:\ker\beta\to\ker\gamma$ is $y\mapsto \Psi(y)$; it lands in $\ker\gamma$
+	since $\gamma(\Psi(y))=\Psi'(\beta(y))=0$. If $y=\Phi(x)$ with $x\in\ker\alpha$, then
+	$\overline{\Psi}(y)=\Psi(\Phi(x))=0$, so $\operatorname{im}\overline{\Phi}\subseteq\ker\overline{\Psi}$.
+	\newline
+	
+	Conversely, if $y\in\ker\beta$ and $\Psi(y)=0$, then $y\in\ker\Psi=\operatorname{im}\Phi$, say $y=\Phi(x)$,
+	and $\beta(y)=0$ implies $\Phi'(\alpha(x))=0$, hence $\alpha(x)=0$ by injectivity of $\Phi'$.
+	So $x\in\ker\alpha$ and $y\in\operatorname{im}\overline{\Phi}$. Thus
+	\[
+	\operatorname{im}\overline{\Phi}=\ker\overline{\Psi}.
+	\]
+	
+Now we check exactness of the middle part of the sequence, $\ker\gamma\ \xrightarrow{\ \delta\ }\ \operatorname{coker}\alpha\ \xrightarrow{\ \overline{\Phi'}\ }\ \operatorname{coker}\beta$.}
+	First, $\overline{\Phi'}\circ \delta=0$: with notation above, $\overline{\Phi'}([d])=[\Phi'(d)]=[\beta(b)]$
+	in $\operatorname{coker}\beta$, which is $0$ by definition, so $\operatorname{im}\delta\subseteq\ker\overline{\Phi'}$.
+	\newline
+	
+	Conversely, suppose $[d]\in\ker\overline{\Phi'}$, i.e.\ $[\Phi'(d)]=0$ in $E/\operatorname{im}\beta$.
+	Then $\Phi'(d)=\beta(b)$ for some $b\in B$. Set $c=\Psi(b)\in C$. Commutativity gives
+	$\gamma(c)=\Psi'(\beta(b))=\Psi'(\Phi'(d))=0$, so $c\in\ker\gamma$. By construction,
+	$\delta(c)=[d]$. Hence $\ker\overline{\Phi'}\subseteq\operatorname{im}\delta$ and thus
+	\[
+	\operatorname{im}\delta=\ker\overline{\Phi'}.
+	\]
+	
+Finally, we check exactness of the last part of the sequence, $\operatorname{coker}\alpha\ \xrightarrow{\ \overline{\Phi'}\ }\ \operatorname{coker}\beta\ \xrightarrow{\ \overline{\Psi'}\ }\ \operatorname{coker}\gamma$.}
+	For $[d]\in \operatorname{coker}\alpha$, $\overline{\Psi'}(\overline{\Phi'}([d]))=[\Psi'(\Phi'(d))]
+	=[\gamma(\Psi(\_))]=0$ by commutativity, so $\operatorname{im}\overline{\Phi'}\subseteq\ker\overline{\Psi'}$.
+	\newline
+	
+	Conversely, if $[e]\in\ker\overline{\Psi'}$ (so $[\Psi'(e)]=0$ in $F/\operatorname{im}\gamma$), then
+	$\Psi'(e)=\gamma(c)$ for some $c\in C$. Choose $b\in B$ with $\Psi(b)=c$. Then
+	\[
+	\Psi'(e-\beta(b))=\Psi'(e)-\Psi'(\beta(b))=\gamma(c)-\gamma(\Psi(b))=0,
+	\]
+	so $e-\beta(b)\in\ker\Psi'=\operatorname{im}\Phi'$, say $e-\beta(b)=\Phi'(d)$.
+	Thus $[e]=[\Phi'(d)]=\overline{\Phi'}([d])$. Hence
+	\[
+	\operatorname{im}\overline{\Phi'}=\ker\overline{\Psi'}.
+	\]
+	
+	Finally, consider the ends of the sequence.
+	$\overline{\Phi}$ is injective by exactness of the top row at $A$; $\overline{\Psi'}$ is
+	surjective by surjectivity of $\Psi'$. This yields the full exact sequence as stated.
+}
+}
 \begin{exercise}
 	Let $X$ be a subset of $\mathbb{R}^n$ containing $w$ such that for all $x \in X$ 
 	the segment connecting $x$ and $w$ is contained in $X$ 
@@ -1271,35 +1353,11 @@ induced maps on homology make the entire sequence commute, expressing the
 	$z = t e_{p+1} + (1-t)z' \in \Delta_{p+1}$ is mapped to 
 	$t w + (1-t)\sigma(z')$.
 \end{exercise}
-
-\begin{exercise}
-	Consider the following commutative diagram of Abelian groups:
-	\[
-	\begin{array}{ccccccccc}
-		0 & \longrightarrow & A & \xrightarrow{\Phi_{1}} & B & \xrightarrow{\Psi_{1}} & C & \longrightarrow & 0 \\
-		& & \;\;\downarrow \alpha & & \;\;\downarrow \beta & & \;\;\downarrow \gamma & & \\
-		0 & \longrightarrow & D & \xrightarrow{\Phi_{2}} & E & \xrightarrow{\Psi_{2}} & F & \longrightarrow & 0
-	\end{array}
-	\]
-	Suppose that the two horizontal sequences are exact and prove that there exists an exact sequence of the following type:
-	\[
-	0 \longrightarrow \ker \alpha 
-	\xrightarrow{\Omega_{1}} \ker \beta 
-	\xrightarrow{\Omega_{2}} \ker \gamma 
-	\xrightarrow{\Omega_{3}} D / \alpha(A) 
-	\xrightarrow{\Omega_{4}} E / \beta(B) 
-	\xrightarrow{\Omega_{5}} F / \gamma(C) 
-	\longrightarrow 0.
-	\]
-	
-	\noindent\textbf{Hint.} This can be done either directly or by using the Snake Lemma; both proofs are interesting!
-	\solution{
-		\begin{center}
-\textcolor{red}{Insert Proof Here}			
-		\end{center}
-	}
-\end{exercise}
-
+\solution{
+\begin{center}
+\textcolor{red}{insert solution here}
+\end{center}
+}
 }
 \lecture{10}{Homotopy Review}
 \begin{definition}
@@ -1991,21 +2049,665 @@ $$
 Since it is a 1 dimenstional surface embedded in $\mathbb{R}^{2}$ all higher homology groups are zero. This emphasizes the fact that $H_{0}$ is measuring path components, not components. We must be careful when these don't coincide.
 }
 \begin{exercise}
-	Compute the homology groups of the following subspace of $\mathbb{R}^2$:
-	\[
-	\{(0, y) \in \mathbb{R}^2 \mid -1 \le y \le 1\} 
-	\;\cup\;
-	\{(x, \sin(1/x)) \in \mathbb{R}^2 \mid 0 < x \le 1\}.
-	\]
-\end{exercise}
-
-
-
-\begin{exercise}
 	Find explicitly a generator of $H_1(S^1)$.
 \end{exercise}
-\lecture{12}{???}
-\lecture{X}{Beginning of Simplicial Homology}
+\solution{
+	We already know from class that
+	\[
+	H_1(S^1) \cong \mathbb{Z}.
+	\]
+	Consider the map
+	\[
+	\ell : \Delta^1 = [0,1] \longrightarrow S^1, 
+	\qquad 
+	\ell(t) = (\cos 2\pi t,\, \sin 2\pi t).
+	\]
+	It traces once around the circle in the counterclockwise direction.
+The boundary of this simplex is given by
+	\[
+	\partial_1 \ell = \ell(1) - \ell(0) = (1,0) - (1,0) = 0.
+	\]
+	Hence $\ell \in Z_1(S^1) = \ker \partial_1$ is a $1$–cycle Now we show that $\ell$ is not a boundary. Every singular $2$–simplex $\sigma:\Delta^2\to S^1$ lies inside a small arc of the circle,
+	and such an arc can be continuously shrunk to a point.
+	Hence the loop $\partial_2\sigma$ can also be shrunk to a point;
+	it represents $0$ in homology.
+	Therefore $\operatorname{Im}\partial_2=0$, so $\ell$ is not a boundary.
+\newline
+
+	Since $H_1(S^1) \cong \mathbb{Z}$ and $[\ell]\neq 0$, it follows that
+	$[\ell]$ must generate the entire group. 
+	Geometrically, going once around the circle represents $1\in\mathbb{Z}$, 
+	and going $k$ times around represents $k[\ell]$.
+	\newline
+	
+	This concept appears widely in physics and biology:
+	\begin{itemize}
+		\item \textbf{DNA topology:} Closed DNA molecules behave like twisted loops. 
+		The \emph{linking number} of two DNA strands measures how many times one winds around the other. 
+		Enzymes called topoisomerases change this integer by cutting and reconnecting the strands.
+		
+		\item \textbf{Condensed matter physics:} 
+		In systems with periodic boundary conditions (such as spins on a ring or a superfluid phase), 
+		the winding number counts how many times the phase variable winds by $2\pi$ along the circle. 
+		It classifies stable configurations such as vortices or persistent currents.
+		
+		\item \textbf{Quantum field theory:} 
+		In field configurations with values in a circle or compact space (e.g.\ the 
+		complex scalar field $\phi = e^{i\theta}$ in the $O(2)$ model), 
+		the winding number is a topological charge conserved under continuous deformations. 
+		Soliton and instanton numbers in higher dimensions generalize this idea.
+	\end{itemize}
+}
+\lecture{12}{No Retract Theorem, Brouwer's Fixed Point Theorem, Local Homology and Topological Invariance of Dimension}
+In the previous class we finished by using the excision theorem to compute the reduced homology groups of the spheres
+\[
+\tilde{H}_i(S^n) =
+\begin{cases}
+	\mathbb{Z}, & i = n,\\
+	0, & i \neq n.
+\end{cases}
+\]
+We now have the following corollary
+\begin{corollary}
+	The sphere $S^{n-1} = \partial D^n$ is not a retract of the disk $D^n$.
+\end{corollary}
+
+\begin{proof}
+	Suppose, for the sake of contradiction, that there exists a retraction
+	\[
+	r : D^n \longrightarrow S^{n-1},
+	\]
+	that is, a continuous map satisfying
+	\[
+	r \circ i = \mathrm{Id}_{S^{n-1}},
+	\]
+	where $i : S^{n-1} \hookrightarrow D^n$ is the inclusion.
+	
+	Consider the induced maps in reduced homology:
+	\[
+	\widetilde{H}_{n-1}(S^{n-1})
+	\xrightarrow{i_*}
+	\widetilde{H}_{n-1}(D^n)
+	\xrightarrow{r_*}
+	\widetilde{H}_{n-1}(S^{n-1}).
+	\]
+	By functoriality of homology,
+	\[
+	(r \circ i)_* = r_* \circ i_* = (\mathrm{Id}_{S^{n-1}})_* = \mathrm{Id}_{\widetilde{H}_{n-1}(S^{n-1})}.
+	\]
+	
+	However, we know from our computation of homology groups that
+	\[
+	\widetilde{H}_{n-1}(S^{n-1}) \cong \mathbb{Z},
+	\qquad
+	\widetilde{H}_{n-1}(D^n) = 0.
+	\]
+	Therefore, the inclusion map $i_*$ is the zero map. This implies
+	\[
+	r_* \circ i_* = 0.
+	\]
+	But the zero map cannot be the identity map on the group $\mathbb{Z}$. Hence, no such retraction $r$ can exist. So $S^{n-1}$ is not a retract of $D^n$.
+\end{proof}
+We can build on this proof to get Brouwer's fixed point theorem. Brouwer's fix pointe theorem shows us that if there isn't a fixed point then the retraction would exist.
+
+\begin{theorem}[Brouwer Fixed Point Theorem]
+	Let $D^n\subset\mathbb R^n$ be the closed unit disk
+	$\{x\in\mathbb R^n:\|x\|\le 1\}$.
+	Every continuous map $f:D^n\to D^n$ has a fixed point.
+\end{theorem}
+
+
+\begin{proof}
+	We argue by contradiction.
+	Assume that $f(x) \neq x$ for all $x \in D^n$.
+	
+	For each $x \in D^n$, consider the ray starting at $f(x)$ and passing
+	through $x$. This ray intersects the boundary sphere
+	$S^{n-1} = \partial D^n$ in exactly one point.
+	Define a new map
+	\[
+	r : D^n \longrightarrow S^{n-1}
+	\]
+	by letting $r(x)$ be this intersection point.
+	
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.4\textwidth]{figures/BrouwerFixedPoint.png}
+\end{figure}
+	
+	Intuitively, $r(x)$ pushes each point $x$ outward from $f(x)$
+	until it hits the boundary.
+	
+	Then $r$ is continuous, and for any $x$ already on the boundary,
+	the ray from $f(x)$ to $x$ meets the boundary at $x$ itself.
+	Hence
+	\[
+	r|_{S^{n-1}} = \mathrm{Id}_{S^{n-1}},
+	\]
+	so $r$ is a \emph{retraction}
+	\[
+	r : D^n \to S^{n-1}.
+	\]
+	
+	But no such retraction can exists so $f$ must have a fixed point.
+\end{proof}
+The Brouwer Fixed Point Theorem has many concrete realizations in physics and related fields. 
+In fluid dynamics, it implies that when stirring a cup of coffee, at least one particle of the fluid remains unmoved. 
+In atmospheric or ocean flows (a related result on the sphere), there must always be at least one point with zero velocity. 
+In thermodynamics and chemical kinetics, it guarantees the existence of an equilibrium state where system variables remain constant. 
+In elasticity and continuum mechanics, any continuous deformation of a body that keeps the boundary fixed leaves at least one interior point unchanged. 
+Finally, in game theory and economics (via the Nash equilibrium theorem), it ensures the existence of a stable equilibrium of strategies. Now we transition to local homologies. Throughout, we assume $X$ is a Hausdorff space.
+
+\begin{definition}
+	Let $z \in X$. The \emph{local homology groups of $X$ at $z$} are defined as
+	\[
+	H_p(X, X \setminus \{z\}).
+	\]
+\end{definition}
+
+\begin{lemma}
+	Let $X$ be a topological space and let $A \subseteq X$.
+	Suppose $z \in A$ and $A$ is a neighborhood of $z$ 
+	(that is, $A$ contains an open subset which contains $z$).
+	Then
+	\[
+	H_p(X, X \setminus \{z\}) \;\cong\; H_p(A, A \setminus \{z\}).
+	\]
+\end{lemma}
+
+\begin{proof}
+	Let $U = X \setminus A$. 
+	Then $z \notin \overline{U} = X \setminus \mathrm{Int}(A)$.
+	Since $X$ is Hausdorff, we have 
+	\[
+	\overline{U} \subseteq X \setminus \{z\} 
+	= \mathrm{Int}\big(X \setminus \{z\}\big).
+	\]
+	By the Excision Theorem,
+	\[
+	H_p(X, X \setminus \{z\})
+	\;\cong\;
+	H_p(X \setminus \overline{U}, (X \setminus \{z\}) \setminus \overline{U})
+	\;\cong\;
+	H_p(A, A \setminus \{z\}).
+	\]
+\end{proof}
+To understand the meaning of the local homology groups 
+\[
+H_p(X, X \setminus \{z\}),
+\]
+let us consider a concrete example. Take $X = \mathbb{R}^2$ and $z = 0$. 
+We want to understand the group
+\[
+H_p(\mathbb{R}^2, \mathbb{R}^2 \setminus \{0\}).
+\]
+The homology groups of the of the separate topological spaces are
+\[
+H_p(\mathbb{R}^2) =
+\begin{cases}
+	\mathbb{Z}, & p = 0,\\
+	0, & \text{otherwise,}
+\end{cases}
+\qquad
+H_p(\mathbb{R}^2 \setminus \{0\}) =
+\begin{cases}
+	\mathbb{Z}, & p = 0,\\
+	\mathbb{Z}, & p = 1,\\
+	0, & \text{otherwise.}
+\end{cases}
+\]
+Removing the point introduces one $1$--dimensional hole around the origin.
+The relative group $H_p(X, A)$ measures what is in $X$ but not already in $A$.
+Equivalently, it is the homology of the quotient $X/A$ obtained by
+\emph{collapsing} $A$ to a point. 
+In our case, collapsing $\mathbb{R}^2 \setminus \{0\}$ to a point
+turns the punctured plane into a $2$--sphere:
+\[
+(\mathbb{R}^2, \mathbb{R}^2 \setminus \{0\})
+\;\simeq\;
+(D^2, S^1).
+\]
+We know from standard results that
+\[
+H_p(D^2, S^1) =
+\begin{cases}
+	\mathbb{Z}, & p = 2,\\
+	0, & \text{otherwise.}
+\end{cases}
+\]
+Hence
+\[
+H_p(\mathbb{R}^2, \mathbb{R}^2 \setminus \{0\}) =
+\begin{cases}
+	\mathbb{Z}, & p = 2,\\
+	0, & \text{otherwise.}
+\end{cases}
+\]
+Removing the point $0$ from the plane creates a loop $S^1$ around the missing point.
+Filling in that loop (i.e.\ restoring the point) corresponds to a $2$--dimensional
+class, representing the ``local $2$--dimensional nature'' of the plane at that point.
+Thus the local homology detects that $\mathbb{R}^2$ is locally a $2$--dimensional manifold. More generally,  $\mathbb{R}^n$ one has
+\[
+H_p(\mathbb{R}^n, \mathbb{R}^n \setminus \{0\}) =
+\begin{cases}
+	\mathbb{Z}, & p = n,\\
+	0, & \text{otherwise.}
+\end{cases}
+\]
+Therefore, the local homology at a point records the local topological dimension of the space. The group $H_p(X, X \setminus \{z\})$ measures how the topology of $X$ changes
+when the point $z$ is removed.
+It captures the ``shape'' of a small sphere around $z$, and thus reflects
+the local structure of $X$ at that point.
+In smooth manifolds, the local homology at each point is concentrated in the top degree,
+confirming that every point has a neighborhood homeomorphic to $\mathbb{R}^n$.
+\newline
+
+The lecture derives the topological invariance of dimension using long exact sequences in homology for local homology groups and a simlar strategy to the proof of Brouwer's fixed point theorem, but I omit this proof. We can use these results to better understand geometry and manifolds with boundaries.
+\begin{definition}
+	Let $X$ be a Hausdorff space.
+	\begin{enumerate}
+		\item $X$ is an \emph{$n$-manifold} if each point of $X$ has an open neighborhood homeomorphic to an open subset of $\mathbb{R}^n$.
+		\item $X$ is an \emph{$n$-manifold with boundary} if each point of $X$ has an open neighborhood homeomorphic to an open subset of 
+		\[
+		\mathbb{H}^n = \{ (x_1, \dots, x_n) \in \mathbb{R}^n \mid x_n \ge 0 \},
+		\]
+		the upper half-space of $\mathbb{R}^n$.
+	\end{enumerate}
+	The integer $n$ is called the \emph{dimension} of the manifold.
+\end{definition}
+\begin{remark}
+	If $X$ is an $n$--manifold with boundary and $z \in X$, we have a chart
+	\[
+	f : U \subset X \longrightarrow V \subset \mathbb{H}^n
+	\]
+	which is a homeomorphism, with $U, V$ open subsets and $z \in U$.
+	The map $f$ is called a \emph{chart} of $X$.
+	
+	We have two possibilities:
+	\begin{enumerate}[i)]
+		\item If $f(z) = (y_1, \dots, y_n)$ with $y_n > 0$, then
+		\[
+		H_p(X, X \setminus \{z\})
+		\;\cong\;
+		H_p(U, U \setminus \{z\})
+		\;\cong\;
+		H_p(V, V \setminus \{f(z)\})
+		\;\cong\;
+		H_p(\mathbb{R}^n, \mathbb{R}^n \setminus \{f(z)\})
+		\;\cong\;
+		\begin{cases}
+			\mathbb{Z}, & p = n,\\
+			0, & \text{otherwise.}
+		\end{cases}
+		\]
+		
+		\item If $f(z) = (y_1, \dots, y_n)$ with $y_n = 0$, then
+		\[
+		H_p(X, X \setminus \{z\})
+		\;\cong\;
+		H_p(\mathbb{H}^n, \mathbb{H}^n \setminus \{f(z)\})
+		= 0
+		\quad \forall p.
+		\]
+	\end{enumerate}
+	
+	Hence, if one chart of $z$ is of type (i) (resp. (ii)), all the charts of $z$
+	are of the same type.
+\end{remark}
+This definition uses \emph{local homology} to distinguish interior and boundary points of a manifold:
+interior points have local homology like $\mathbb{R}^n$, while boundary points have trivial local homology in degree~$n$.
+It provides a purely \emph{topological characterization} of the boundary, showing that manifolds with boundary
+are locally modeled either on $\mathbb{R}^n$ or on the half-space~$\mathbb{H}^n$.
+\begin{definition}[Boundary of a manifold]
+	Let $X$ be a manifold with boundary.  
+	A point $x \in X$ is said to be \emph{contained in the boundary of $X$} if and only if there exists a chart
+	\[
+	\varphi : U \subseteq X \longrightarrow V \subseteq \mathbb{H}^n
+	\]
+	such that
+	\[
+	\varphi(x) = (y_1, \dots, y_n) \quad \text{with } y_n = 0.
+	\]
+\end{definition}
+	By the previous results, this definition does not depend on the choice of the chart we consider.
+The notion of boundary for a manifold is intrinsic and differs from the usual topological boundary.
+Recall that for a subset $A \subseteq X$ of a topological space, the \emph{topological boundary} is defined as
+\[
+\partial_{\text{top}} A = \overline{A} \setminus \operatorname{int}(A),
+\]
+namely, the set of points whose every neighborhood intersects both $A$ and its complement.  The two notions generally do not coincide.  The topological boundary depends on how $M$ is embedded in an ambient space, while the manifold boundary depends only on the intrinsic differentiable structure of $M$.  
+For instance, the open disk
+\[
+D^2 = \{ (x,y) \in \mathbb{R}^2 \mid x^2 + y^2 < 1 \}
+\]
+has empty manifold boundary $\partial_{\text{man}} D^2 = \varnothing$, even though its topological boundary in $\mathbb{R}^2$ is the circle $S^1$.  
+On the other hand, the closed disk $\overline{D^2} = \{ (x,y) \mid x^2 + y^2 \le 1 \}$ satisfies $\partial_{\text{man}} \overline{D^2} = S^1$.  
+Hence, the boundary of a manifold is not, in general, the same as the topological boundary.
+\newline 
+
+In conclusion, local homology provides a way to characterize both the dimension and the boundary structure of a manifold in purely topological terms.  
+The dimension of a manifold is a topological invariant, meaning it is preserved under homeomorphisms.  
+Moreover, if $f : M \to N$ is a homeomorphism between manifolds with boundary, then
+\[
+f(\partial M) = \partial N.
+\]
+Hence, the boundary of a manifold is also a topological invariant.  
+These results emphasize that the notions of dimension and boundary depend only on the underlying topology of the manifold, not on any particular smooth structure or embedding.
+\lecture{13}{Maeyer-Vitoris Sequence, Maps Between Spheres and Degree of the Map}
+We will now build up to powerful tool for computing homology groups through sequences. However, we must first do some preliminary definitions.
+\section*{Mayer--Vietoris Sequence}
+
+\begin{definition}[Excisive couple]
+	Let $X$ be a topological space and let $X_1, X_2 \subseteq X$ be such that
+	\[
+	X_1 \cup X_2 = X.
+	\]
+	Consider the inclusion map
+	\[
+	i : S_p(X_1) + S_p(X_2) \longrightarrow S_p(X),
+	\]
+	where $S_p(X)$ denotes the group of singular $p$-chains on $X$.
+	(The groups $S_p(X_1)$ and $S_p(X_2)$ are regarded as subgroups of $S_p(X)$.) If, for each $p$, the inclusion map $i$ induces an isomorphism in homology, then the pair $\{X_1, X_2\}$ is called an \emph{excisive couple}.
+\end{definition}
+
+\begin{remark}
+	We can equivalently write
+	\[
+	S_p(X_1) + S_p(X_2) = S_p(X)
+	\]
+	and denote $\mu = \{ X_1, X_2 \}$.
+\end{remark}
+
+\begin{theorem}[Sufficient condition for excision]
+	If
+	\[
+	\operatorname{Int} X_1 \cup \operatorname{Int} X_2 = X,
+	\]
+	then the inclusion map
+	\[
+	i : S_p(X_1) + S_p(X_2) \hookrightarrow S_p(X)
+	\]
+	induces an isomorphism in homology by the Small Simplices Theorem. The Small Simplices Theorem states that given any open covering $\mathcal{U}$ of a topological space $X$, every singular simplex in $X$ is homologous to a sum of simplices whose images lie entirely within elements of $\mathcal{U}$.  
+	In other words, the homology of $X$ can be computed using chains composed of ``sufficiently small'' simplices, each contained in a single open set of the covering.  
+	This result ensures that when $\operatorname{Int} X_1 \cup \operatorname{Int} X_2 = X$, all homological information of $X$ is already captured by chains lying in $X_1$ or $X_2$, justifying the excision condition above.  
+\end{theorem}
+The requirement that the inclusion map
+\[
+i_* : H_p(S_p(X_1) + S_p(X_2)) \longrightarrow H_p(S_p(X))
+\]
+be an isomorphism means that, at the level of homology, the two subspaces $X_1$ and $X_2$ together capture all the essential topological information of $X$.  
+Every cycle in $X$ can be represented by a combination of cycles lying in $X_1$ and $X_2$, and all relations among them already occur within their union.  
+Thus, when the inclusion induces an isomorphism, passing from $X_1 \cup X_2$ to $X$ does not create or remove any homological feature — the decomposition $\{X_1, X_2\}$ is said to be \emph{excisive} because no ``piece'' of $X$ is missing from the union.
+\begin{theorem}[Mayer--Vietoris Sequence]
+	Let $X$ be a topological space and let $\{X_1, X_2\}$ be an excisive couple of $X$.
+	Then there exists a long exact sequence in homology:
+	\[
+	\cdots 
+	\longrightarrow H_p(X_1 \cap X_2)
+	\xrightarrow{\ \Phi_p\ }
+	H_p(X_1) \oplus H_p(X_2)
+	\xrightarrow{\ \Psi_p\ }
+	H_p(X)
+	\longrightarrow H_{p-1}(X_1 \cap X_2)
+	\longrightarrow \cdots
+	\]
+	where the connecting homomorphisms are given by
+	\[
+	\Phi_p(a) = \big(i_{1*}(a), -\,i_{2*}(a)\big), 
+	\qquad
+	\Psi_p(c, d) = k_{1*}(c) + k_{2*}(d),
+	\]
+	and $i_1, i_2, k_1, k_2$ denote the inclusion maps in the following commutative diagram:
+	\[
+	\begin{tikzcd}[row sep=large, column sep=large]
+		X_1 \cap X_2 \arrow[r, "i_1"] \arrow[d, "i_2"'] 
+		& X_1 \arrow[d, "k_1"] \\
+		X_2 \arrow[r, "k_2"'] 
+		& X
+	\end{tikzcd}
+	\]
+	
+	\noindent
+	Moreover, if $X_1 \cap X_2 \neq \varnothing$, 
+	then the Mayer--Vietoris sequence holds also for \emph{reduced homology}.
+	\smallskip
+	
+	The sequence is also \emph{natural} with respect to continuous maps. Specifically, suppose $X$ and $Y$ are topological spaces such that
+	\[
+	X = X_1 \cup X_2,
+	\qquad
+	Y = Y_1 \cup Y_2,
+	\]
+	and let $f : X \to Y$ be a continuous map satisfying
+	\[
+	f(X_1) \subseteq Y_1
+	\qquad \text{and} \qquad
+	f(X_2) \subseteq Y_2.
+	\]
+	Then $f$ induces maps on the corresponding homology groups:
+	\[
+	f_* : H_p(X) \to H_p(Y), \quad
+	(f|_{X_i})_* : H_p(X_i) \to H_p(Y_i), \quad
+	(f|_{X_1 \cap X_2})_* : H_p(X_1 \cap X_2) \to H_p(Y_1 \cap Y_2),
+	\]
+	and these fit into the following commutative diagram:
+	\[
+	\begin{tikzcd}[column sep=small]
+		\cdots \arrow[r] 
+		& H_p(X_1 \cap X_2) \arrow[r, "\Phi_p"] \arrow[d, "(f|_{X_1 \cap X_2})_*"'] 
+		& H_p(X_1) \oplus H_p(X_2) \arrow[r, "\Psi_p"] \arrow[d, "(f|_{X_1})_* \oplus (f|_{X_2})_*"'] 
+		& H_p(X) \arrow[r] \arrow[d, "f_*"'] 
+		& H_{p-1}(X_1 \cap X_2) \arrow[r] \arrow[d, "(f|_{X_1 \cap X_2})_*"'] 
+		& \cdots \\
+		\cdots \arrow[r] 
+		& H_p(Y_1 \cap Y_2) \arrow[r, "\Phi_p"] 
+		& H_p(Y_1) \oplus H_p(Y_2) \arrow[r, "\Psi_p"] 
+		& H_p(Y) \arrow[r] 
+		& H_{p-1}(Y_1 \cap Y_2) \arrow[r] 
+		& \cdots
+	\end{tikzcd}
+	\]
+\end{theorem}
+The proof is quite boring, but it is very exciting to try it out on the spheres. Previously we worked very hard using the excision theorem to get the homology group of the spheres. Now we have a much better way.
+\begin{exercise}
+	Compute $\tilde{H}_i(S^m)$ by using the Mayer--Vietoris sequence.
+\end{exercise}
+We proceed inductively, namely that the homology groups for points are trivial for $p>0$ and $\mathbb{Z}$ for $p=0$. The direct sum of the homology groups of the disconnected points is $\mathbb{Z}\oplus\mathbb{Z}$ so  the reduced homology group $\tilde{H}_{0}(S^{0})\cong\mathbb{Z}$
+\newline
+
+Now consider the sphere $S^m$ decomposed into two hemispheres:
+\[
+S^m = Y_1 \cup Y_2,
+\]
+where $Y_1$ and $Y_2$ are the upper and lower closed hemispheres, whose intersection is the equatorial $(m-1)$-sphere.
+
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{figures/sphereequator.png}
+	\label{fig:my_diagram}
+\end{figure}
+
+We have
+\[
+\operatorname{Int} Y_1 \cup \operatorname{Int} Y_2 = S^m
+\quad \Rightarrow \quad
+\{Y_1, Y_2\} \text{ is an excisive couple.}
+\]
+
+Each $Y_i$ is homeomorphic to a closed $m$-disk $D^m$, hence contractible:
+\[
+Y_i \simeq D^m \quad \Rightarrow \quad Y_i \text{ are acyclic.}
+\]
+
+Moreover, the intersection $Y_1 \cap Y_2$ is homotopy equivalent to $S^{m-1}$:
+\[
+Y_1 \cap Y_2 \simeq S^{m-1}.
+\]
+
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{figures/equator.png}
+	\label{fig:my_diagram}
+\end{figure}
+
+This is because
+\[
+Y_1 \cap Y_2 \approx S^{m-1} \times [-1,1],
+\]
+and $S^{m-1} \times \{0\}$ is a deformation retract of $S^{m-1} \times [-1,1]$,
+via
+\[
+r(x, t) = (x, 0).
+\]
+We now apply the Mayer--Vietoris sequence for the decomposition
+\[
+S^m = Y_1 \cup Y_2, \qquad Y_1, Y_2 \text{ acyclic}, \qquad Y_1 \cap Y_2 \simeq S^{m-1}.
+\]
+The reduced Mayer--Vietoris sequence reads
+\[
+\cdots \longrightarrow 
+\tilde{H}_p(Y_1 \cap Y_2)
+\longrightarrow
+\tilde{H}_p(Y_1) \oplus \tilde{H}_p(Y_2)
+\longrightarrow
+\tilde{H}_p(S^m)
+\longrightarrow
+\tilde{H}_{p-1}(Y_1 \cap Y_2)
+\longrightarrow
+\tilde{H}_{p-1}(Y_1) \oplus \tilde{H}_{p-1}(Y_2)
+\longrightarrow \cdots
+\]
+Since $Y_1$ and $Y_2$ are contractible, all their reduced homology groups vanish:
+\[
+\tilde{H}_p(Y_1) = \tilde{H}_p(Y_2) = 0 \quad \forall p.
+\]
+Hence the sequence simplifies to
+\[
+0 \longrightarrow \tilde{H}_p(S^m)
+\longrightarrow \tilde{H}_{p-1}(Y_1 \cap Y_2)
+\longrightarrow 0,
+\]
+so that
+\[
+\tilde{H}_p(S^m) \cong \tilde{H}_{p-1}(Y_1 \cap Y_2)
+\cong \tilde{H}_{p-1}(S^{m-1}).
+\]
+we conclude
+\[
+	\tilde{H}_i(S^m) =
+	\begin{cases}
+		\mathbb{Z}, & i = m,\\[4pt]
+		0, & \text{otherwise.}
+	\end{cases}
+\]
+Now we study some more topological properties of spheres.
+\begin{definition}
+	Let \( f : S^m \to S^m \) be a continuous map.  
+	Consider the induced homomorphism in reduced homology:
+	\[
+	f_* : \tilde{H}_m(S^m) \longrightarrow \tilde{H}_m(S^m).
+	\]
+	Since \(\tilde{H}_m(S^m) \cong \mathbb{Z}\), we have
+	\[
+	f_* : \mathbb{Z} \longrightarrow \mathbb{Z}.
+	\]
+
+Therefore, there exists an integer \( d \in \mathbb{Z} \) such that
+\[
+f_*(\alpha) = d\,\alpha \quad \forall\, \alpha \in \mathbb{Z},
+\qquad \text{equivalently, } f_*(1) = d.
+\]
+	The integer \( d \) is called the \emph{degree} of \( f \), denoted
+	\[
+	\deg(f) = d.
+	\]
+\end{definition}
+\begin{remark}
+	Since $\tilde{H}_m(S^m) \cong \mathbb{Z}$ is an additive group, any homomorphism
+	$f_* : \mathbb{Z} \to \mathbb{Z}$ must satisfy
+	\[
+	f_*(a+b) = f_*(a) + f_*(b), \qquad \forall\, a,b \in \mathbb{Z}.
+	\]
+	The image of $1$ determines the whole map.  
+	If $f_*(1) = d$, then by additivity
+	\[
+	f_*(n) = f_*(1+\cdots+1) = n f_*(1) = d n.
+	\]
+	Hence $f_*$ is necessarily ``multiplication by an integer $d$.''  For example, if $d=2$, then $f_*(3) = 6$.  
+	A choice such as $f_*(3) = 5$ would force $f_*(1)=5/3$, which is not an integer
+	and therefore not a valid group homomorphism $\mathbb{Z} \to \mathbb{Z}$.
+	Thus the coefficient $d$ must always be an integer.
+\end{remark}
+We state the following properties of the degree without proof. They will be used in subsequent lessons to prove major topological results. Let $f, g : S^m \to S^m$ be continuous maps.  
+\begin{enumerate}
+\item \textbf{Normalization:}  
+	\[
+	\deg(\mathrm{id}_{S^m}) = 1.
+	\]
+	
+	\item \textbf{Constant map:}  
+	If $f$ is constant, then $\deg(f) = 0$.
+	
+	\item \textbf{Non-surjective maps:}  
+	If $f$ is not surjective, then $\deg(f) = 0$.
+	
+	\item \textbf{Homotopy invariance:}  
+	If $f \simeq g$ (i.e.\ $f$ and $g$ are homotopic), then
+	\[
+	\deg(f) = \deg(g).
+	\]
+	
+	\item \textbf{Functoriality (composition rule):}  
+	\[
+	\deg(f \circ g) = \deg(f) \cdot \deg(g).
+	\]
+	
+	\item \textbf{Homeomorphisms and homotopy equivalences:}  
+	If $f$ is a homeomorphism (or a homotopy equivalence), then
+	\[
+	\deg(f) = \pm 1.
+	\]
+	Orientation-preserving maps have $\deg(f) = +1$,  
+	orientation-reversing maps have $\deg(f) = -1$.
+	
+	\item \textbf{Degree of reflection:}  
+	If $f$ is the reflection of $S^m$ in a hyperplane of $\mathbb{R}^{m+1}$, then
+	\[
+	\deg(f) = -1.
+	\]
+	(\emph{Geometric picture: the reflection reverses orientation.})
+	
+	\item \textbf{Degree and orientation change:}  
+	If $\xi : S^m \to S^m$ is a homeomorphism, then for any $f$
+	\[
+	\deg(\xi \circ f \circ \xi^{-1}) = \deg(f).
+	\]
+	
+	\item \textbf{Product of maps (optional, higher-level property):}  
+	If $f : S^m \to S^m$ and $g : S^n \to S^n$, then
+	\[
+	\deg(f \times g) = \deg(f) \cdot \deg(g).
+	\]
+	
+	\item \textbf{Hopf Theorem (1925):}  
+	If $\deg(f) = \deg(g)$, then $f$ and $g$ are homotopic:
+	\[
+	\deg(f) = \deg(g) \quad \Longleftrightarrow \quad f \simeq g.
+	\]
+	
+\end{enumerate}
+\lecture{14}{Hairy Ball Theorem}
+\begin{center}
+	\textcolor{red}{all of lezione 22-11-21}
+\end{center}
+
+
+
+
+
+
+\newpage
+\lecture{X}{All Remaining Problems}
 \begin{exercise}
 	Let $\Delta^3$ be the standard 3-simplex, and consider the topological space $X$ obtained by identifying the edge $[v_0, v_1]$ with the edge $[v_0, v_2]$ and $[v_1, v_3]$ with $[v_2, v_3]$.  
 	Prove that $S^2$ is a deformation retract of $X$.  
@@ -2016,4 +2718,242 @@ Since it is a 1 dimenstional surface embedded in $\mathbb{R}^{2}$ all higher hom
 \begin{exercise}
 	Compute the homology groups of $\mathbb{RP}^2$.
 \end{exercise}
+
+\begin{exercise}
+	Let 
+	\[
+	0 \longrightarrow A \xrightarrow{f} B \xrightarrow{g} C \longrightarrow 0
+	\]
+	be a short exact sequence of abelian groups.
+	
+	\begin{enumerate}
+		\item Prove that the following conditions are equivalent:
+		\begin{enumerate}
+			\item[(i)] There exists a homomorphism $g' : C \to B$ such that $g \circ g' = \mathrm{Id}_C$.
+			\item[(ii)] There exists a homomorphism $f' : B \to A$ such that $f' \circ f = \mathrm{Id}_A$.
+		\end{enumerate}
+		If these conditions are satisfied, we say that the sequence \emph{splits}, or that it is a \emph{split exact sequence}.
+		
+		\item Prove that, if the sequence splits, then $B \cong A \oplus C$.
+		
+		\item Prove that, if $C$ is a free abelian group, then the sequence splits.
+		
+		\item Find an example of a short exact sequence that does \emph{not} split.
+	\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+	Let $X$ be the topological space obtained by identifying the four vertices of a square.
+	Compute the homology groups of $X$.
+\end{exercise}
+
+\begin{exercise}
+	Let $T^2$ be the $2$-dimensional torus. Assume that
+	\[
+	\widetilde{H}_1(T^2) \cong \mathbb{Z} \times \mathbb{Z}, 
+	\qquad
+	\widetilde{H}_2(T^2) \cong \mathbb{Z}, 
+	\qquad
+	\widetilde{H}_i(T^2) = 0 \text{ for } i \neq 1,2.
+	\]
+	(The homology groups of the torus can be computed by using the equivalence between simplicial and singular homology.)
+	Compute the homology groups of $T^2 \setminus X_n$, where $X_n$ consists of $n$ distinct points of $T^2$.
+\end{exercise}
+\begin{exercise}
+	Let $X$ be a non-empty topological space.  
+	We define $\Sigma(X)$ as the topological space obtained from $X \times [0,1]$
+	by collapsing $X \times \{0\}$ to a point and $X \times \{1\}$ to another point.  
+	The topological space $\Sigma(X)$ is called the \emph{suspension} of $X$.
+	
+	\begin{enumerate}
+		\item Prove that $\widetilde{H}_i(X) \cong \widetilde{H}_{i+1}(\Sigma(X))$.
+		
+		\item Prove that $\Sigma(S^n)$ is homeomorphic to $S^{n+1}$, and use this fact to compute
+		the homology groups of the spheres.
+		
+		\item Let $f : X \to Y$ be a continuous function between topological spaces.
+		Prove that $f$ induces a continuous function
+		\[
+		\Sigma f : \Sigma(X) \longrightarrow \Sigma(Y)
+		\]
+		defined by $\Sigma f(x,t) = (f(x), t)$.
+		
+		\item Prove that if $f : S^n \to S^n$ has degree $d$, then $\Sigma f : \Sigma(S^n) \to \Sigma(S^n)$
+		has the same degree.
+		
+		\item Prove that for each $n \in \mathbb{Z}$ there exists a continuous function
+		$f : S^1 \to S^1$ of degree $n$.
+		
+		\item Prove that for each $n, m \in \mathbb{Z}$ there exists a continuous function
+		$f : S^m \to S^m$ of degree $n$.
+	\end{enumerate}
+\end{exercise}
+\begin{exercise}
+	Prove the \emph{Five Lemma}.  
+	Are all the hypotheses in the statement presented during the lesson necessary?
+\end{exercise}
+
+\begin{exercise}
+	\begin{enumerate}
+		\item Let $P$ be a convex polyhedron with $v$ vertices, $l$ edges, and $f$ faces.  
+		Prove that
+		\[
+		v - l + f = 2.
+		\]
+		
+		\item A \emph{symmetry} of a polyhedron is an isometry of the Euclidean space
+		that leaves the polyhedron invariant.  
+		Two vertices of the polyhedron are said to be \emph{equivalent} if there exists a symmetry
+		that maps one vertex to the other. Analogously, equivalence can be defined for edges and faces.
+		
+		A convex polyhedron is said to be \emph{regular} if all the vertices, all the edges, and all the faces are equivalent.  
+		Prove that a regular convex polyhedron must be one of the following types:
+		\[
+		\text{tetrahedron, cube, octahedron, dodecahedron, or icosahedron.}
+		\]
+	\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+	Using the results already obtained, compute the \emph{Euler characteristic} of the following spaces:
+	\begin{itemize}
+		\item the sphere $S^n$ of dimension $n$,
+		\item the $2$-dimensional torus $T^2$,
+		\item the torus with $n$ punctures (see Homework~6),
+		\item the projective plane $\mathbb{RP}^2$.
+	\end{itemize}
+	What is the Euler characteristic of an \emph{acyclic space}?
+\end{exercise}
+
+\begin{exercise}
+	Prove that the homology groups of the real projective space $\mathbb{RP}^n$ are given by
+	\[
+	H_i(\mathbb{RP}^n) =
+	\begin{cases}
+		\mathbb{Z}, & i = 0, \\[4pt]
+		\mathbb{Z}, & i = n \text{ and } n \text{ odd}, \\[4pt]
+		\mathbb{Z}_2, & 0 < i < n \text{ and } i \text{ odd}, \\[4pt]
+		0, & \text{otherwise.}
+	\end{cases}
+	\]
+\end{exercise}
+
+\begin{exercise}
+	Let $T^3$ be the topological space obtained by identifying the opposite faces of the cube 
+	$[0,1]^3 \subset \mathbb{R}^3$ by translations (the space $T^3$ is called the \emph{3-dimensional torus}).  
+	Prove that
+	\[
+	H_0(T^3) \cong H_3(T^3) \cong \mathbb{Z}
+	\qquad \text{and} \qquad
+	H_1(T^3) \cong H_2(T^3) \cong \mathbb{Z}^3.
+	\]
+\end{exercise}
+\begin{exercise}
+	\begin{enumerate}
+		\item Prove that if the sequence
+		\[
+		A \xrightarrow{f} B \xrightarrow{g} C \longrightarrow 0
+		\]
+		is exact, then for each abelian group $G$ the following sequence is exact
+		(right exactness of the tensor product):
+		\[
+		A \otimes G \xrightarrow{f \otimes \mathrm{Id}_G} 
+		B \otimes G \xrightarrow{g \otimes \mathrm{Id}_G} 
+		C \otimes G \longrightarrow 0.
+		\]
+		
+		\item Prove that if the sequence
+		\[
+		0 \longrightarrow A \xrightarrow{f} B \xrightarrow{g} C \longrightarrow 0
+		\]
+		is exact, then for each free abelian group $H$ the following sequence is exact:
+		\[
+		0 \longrightarrow 
+		A \otimes H \xrightarrow{f \otimes \mathrm{Id}_H} 
+		B \otimes H \xrightarrow{g \otimes \mathrm{Id}_H} 
+		C \otimes H \longrightarrow 0.
+		\]
+		
+		\item Prove that the group $\mathbb{Z}_n \otimes \mathbb{Z}_m$ is isomorphic to
+		$\mathbb{Z}_d$, where $d = \gcd(n,m)$.
+	\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+	Compute the homology groups of the following spaces:
+	\[
+	S^1 \times D^2 
+	\qquad \text{and} \qquad 
+	S^1 \times S^2.
+	\]
+\end{exercise}
+\begin{exercise}
+	Let $G$, $H$, and $(H_i)$ be abelian groups. Prove that:
+	\begin{enumerate}
+		\item $\operatorname{Tor}(H, G) = \operatorname{Tor}(G, H)$;
+		
+		\item $\operatorname{Tor}\!\left(\bigoplus_i H_i,\, G\right)
+		= \bigoplus_i \operatorname{Tor}(H_i, G)$;
+		
+		\item If either $H$ or $G$ is torsion--free, then $\operatorname{Tor}(H, G) = 0$;
+		
+		\item $\operatorname{Tor}(H, G) = \operatorname{Tor}(T(H), G)$,  
+		where $T(H)$ denotes the torsion subgroup of $H$;
+		
+		\item $\operatorname{Tor}(\mathbb{Z}_n, G) \cong \ker(m_n)$,  
+		where $m_n : G \to G$ is defined by $m_n(g) = n g$;
+		
+		\item An exact sequence
+		\[
+		0 \longrightarrow H_1 \longrightarrow H_2 \longrightarrow H_3 \longrightarrow 0
+		\]
+		induces an exact sequence of the following type:
+		\[
+		0 \longrightarrow \operatorname{Tor}(G, H_1)
+		\longrightarrow \operatorname{Tor}(G, H_2)
+		\longrightarrow \operatorname{Tor}(G, H_3)
+		\longrightarrow G \otimes H_1
+		\longrightarrow G \otimes H_2
+		\longrightarrow G \otimes H_3
+		\longrightarrow 0;
+		\]
+		
+		\item $\operatorname{Tor}(\mathbb{Z}_n, \mathbb{Z}_m) \cong \mathbb{Z}_d$,  
+		where $d = \gcd(n, m)$.
+	\end{enumerate}
+	
+	\medskip
+	\noindent\textbf{Hint.}  
+	Prove the properties in the following order:  
+	(2), (5), (6), (3) for free abelian groups, (1), (3) for torsion–free abelian groups, (4), (7).
+\end{exercise}
+\begin{exercise}
+	Compute the homology groups of the following spaces:
+	\[
+	S^1 \times D^2
+	\qquad \text{and} \qquad
+	S^1 \times S^2.
+	\]
+\end{exercise}
+
+\begin{exercise}
+	Let $X$ be a CW complex obtained by attaching two $2$--cells to the bouquet
+	$S^1 \vee S^1$ according to the following attaching maps:
+	\[
+	a b a b a b a
+	\quad \text{and} \quad
+	a^4 b a^{-1}.
+	\]
+	Compute $H_i(X, G)$ for the following coefficient groups:
+	\[
+	G = \mathbb{Z},\ \mathbb{Z}_2,\ \mathbb{Z}_3,\ \mathbb{Z}_7,\ \mathbb{Q},\ \text{and}\ S^1,
+	\]
+	where $S^1$ denotes the multiplicative group of complex numbers of modulus one.
+\end{exercise}
+
+\begin{exercise}
+	Compute the cohomology groups of $\mathbb{RP}^n$ with coefficients in $G$.  
+	Present explicitly $H^i(\mathbb{RP}^n, G)$ for the same groups $G$ listed in the previous exercise.
+\end{exercise}
+
 \end{document}

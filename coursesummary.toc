@@ -8,8 +8,10 @@
 \contentsline {section}{Lecture 6: Homology Group of A Cone and more Reduced Homology Group Properties}{18}{}%
 \contentsline {section}{Lecture 7: Beginning of Singular Homology and its Topological Invariance}{20}{}%
 \contentsline {section}{Lecture 8: Reduced Homology, Properties of Singular Homology, Relative Homology and Homological Algebra Part II}{23}{}%
-\contentsline {section}{Lecture 9: Snake Lemma, more Homological Algebra and Applications to Algebraic Topology}{25}{}%
-\contentsline {section}{Lecture 10: Homotopy Review}{28}{}%
-\contentsline {section}{Lecture 11: Star Convexity, Excision Theorem and Homology of Spheres}{29}{}%
-\contentsline {section}{Lecture 12: ???}{37}{}%
-\contentsline {section}{Lecture X: Beginning of Simplicial Homology}{37}{}%
+\contentsline {section}{Lecture 9: Zig-Zag Lemma, more Homological Algebra and Applications to Algebraic Topology}{25}{}%
+\contentsline {section}{Lecture 10: Homotopy Review}{29}{}%
+\contentsline {section}{Lecture 11: Star Convexity, Excision Theorem and Homology of Spheres}{30}{}%
+\contentsline {section}{Lecture 12: No Retract Theorem, Brouwer's Fixed Point Theorem, Local Homology and Topological Invariance of Dimension}{39}{}%
+\contentsline {section}{Lecture 13: Maeyer-Vitoris Sequence, Maps Between Spheres and Degree of the Map}{43}{}%
+\contentsline {section}{Lecture 14: Hairy Ball Theorem}{47}{}%
+\contentsline {section}{Lecture X: All Remaining Problems}{48}{}%

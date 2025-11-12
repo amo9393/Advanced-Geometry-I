@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.7.25)  3 NOV 2025 17:42
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.7.25)  11 NOV 2025 16:03
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -673,6 +673,12 @@ LaTeX Warning: Label `fig:my_diagram' multiply defined.
 
 LaTeX Warning: Label `fig:my_diagram' multiply defined.
 
+
+LaTeX Warning: Label `fig:my_diagram' multiply defined.
+
+
+LaTeX Warning: Label `fig:my_diagram' multiply defined.
+
 )
 \openout1 = `coursesummary.aux'.
 
@@ -1211,6 +1217,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [26]
+Underfull \hbox (badness 10000) in paragraph at lines 1274--1274
+
+ []
+
+
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1220,6 +1231,65 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [27]
+Underfull \hbox (badness 10000) in paragraph at lines 1286--1289
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1290--1298
+
+ []
+
+! Too many }'s.
+l.1306 ...{\Phi'}\ }\ \operatorname{coker}\beta$.}
+                                                  
+You've closed more groups than you opened.
+Such booboos are generally harmless, so keep going.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1306--1310
+
+ []
+
+! Too many }'s.
+l.1319 ...\Psi'}\ }\ \operatorname{coker}\gamma$.}
+                                                  
+You've closed more groups than you opened.
+Such booboos are generally harmless, so keep going.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1319--1323
+
+ []
+
+! Too many }'s.
+l.1338 }
+        
+You've closed more groups than you opened.
+Such booboos are generally harmless, so keep going.
+
+! Too many }'s.
+l.1339 }
+        
+You've closed more groups than you opened.
+Such booboos are generally harmless, so keep going.
+
+
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[28]
+! Too many }'s.
+l.1361 }
+        
+You've closed more groups than you opened.
+Such booboos are generally harmless, so keep going.
+
 File: figures/homotopy.png Graphic file (type bmp)
 <figures/homotopy.png>
 
@@ -1231,19 +1301,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[28]
+[29]
 File: figures/convex.png Graphic file (type bmp)
 <figures/convex.png>
 
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[29]
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1262,6 +1323,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [31]
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[32]
 File: figures/SphereExcision.png Graphic file (type bmp)
 <figures/SphereExcision.png>
 
@@ -1273,19 +1343,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[32]
+[33]
 File: figures/retraction.png Graphic file (type bmp)
 <figures/retraction.png>
 
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[33]
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1304,6 +1365,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [35]
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[36]
 File: figures/topologistsinecurve.png Graphic file (type bmp)
 <figures/topologistsinecurve.png>
 
@@ -1315,7 +1385,17 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[36]
+[37]
+Underfull \hbox (badness 10000) in paragraph at lines 2100--2100
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2100--2100
+
+ []
+
+
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1324,7 +1404,201 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[37] (./coursesummary.aux)
+[38]
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[39]
+File: figures/BrouwerFixedPoint.png Graphic file (type bmp)
+<figures/BrouwerFixedPoint.png>
+
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[40]
+Underfull \hbox (badness 10000) in paragraph at lines 2296--2304
+
+ []
+
+
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[41]
+
+! LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.2328 ^^I^^I\item I
+                    f $f(z) = (y_1, \dots, y_n)$ with $y_n > 0$, then
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Overfull \hbox (43.84918pt too wide) detected at line 2342
+\OML/cmm/m/it/10.95 H[]\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 X; X \OMS/cmsy/m
+/n/10.95 n f\OML/cmm/m/it/10.95 z\OMS/cmsy/m/n/10.95 g\OT1/cmr/m/n/10.95 )  [] 
+ \OML/cmm/m/it/10.95 H[]\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 U; U \OMS/cmsy/
+m/n/10.95 n f\OML/cmm/m/it/10.95 z\OMS/cmsy/m/n/10.95 g\OT1/cmr/m/n/10.95 )  []
+  \OML/cmm/m/it/10.95 H[]\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 V; V \OMS/cmsy
+/m/n/10.95 n f\OML/cmm/m/it/10.95 f\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 z\OT
+1/cmr/m/n/10.95 )\OMS/cmsy/m/n/10.95 g\OT1/cmr/m/n/10.95 )  []  \OML/cmm/m/it/1
+0.95 H[]\OT1/cmr/m/n/10.95 (\U/msb/m/n/10.95 R[]\OML/cmm/m/it/10.95 ; \U/msb/m/
+n/10.95 R[] \OMS/cmsy/m/n/10.95 n f\OML/cmm/m/it/10.95 f\OT1/cmr/m/n/10.95 (\OM
+L/cmm/m/it/10.95 z\OT1/cmr/m/n/10.95 )\OMS/cmsy/m/n/10.95 g\OT1/cmr/m/n/10.95 )
+  []  []
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2382--2387
+
+ []
+
+
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[42]
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[43]
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[44]
+Underfull \hbox (badness 10000) in paragraph at lines 2515--2517
+
+ []
+
+File: figures/sphereequator.png Graphic file (type bmp)
+<figures/sphereequator.png>
+File: figures/equator.png Graphic file (type bmp)
+<figures/equator.png>
+
+Overfull \hbox (40.15399pt too wide) detected at line 2579
+[] [][]\OMS/cmsy/m/n/10.95 ! []\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 Y[] \OMS
+/cmsy/m/n/10.95 \ \OML/cmm/m/it/10.95 Y[]\OT1/cmr/m/n/10.95 ) [][]\OMS/cmsy/m/n
+/10.95 ! []\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 Y[]\OT1/cmr/m/n/10.95 ) \OMS
+/cmsy/m/n/10.95 ^^H []\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 Y[]\OT1/cmr/m/n/1
+0.95 ) [][]\OMS/cmsy/m/n/10.95 ! []\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 S[]\
+OT1/cmr/m/n/10.95 ) [][]\OMS/cmsy/m/n/10.95 ! []\OT1/cmr/m/n/10.95 (\OML/cmm/m/
+it/10.95 Y[] \OMS/cmsy/m/n/10.95 \ \OML/cmm/m/it/10.95 Y[]\OT1/cmr/m/n/10.95 ) 
+[][]\OMS/cmsy/m/n/10.95 ! []\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 Y[]\OT1/cmr
+/m/n/10.95 ) \OMS/cmsy/m/n/10.95 ^^H []\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 
+Y[]\OT1/cmr/m/n/10.95 ) [][]\OMS/cmsy/m/n/10.95 ! []
+ []
+
+
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[45]
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[46]
+Overfull \hbox (7.8443pt too wide) in paragraph at lines 2669--2672
+\TU/Arial(0)/m/n/10.95 Orientation-preserving maps have $[]\OT1/cmr/m/n/10.95 (
+\OML/cmm/m/it/10.95 f\OT1/cmr/m/n/10.95 ) = +1$\TU/Arial(0)/m/n/10.95 , orienta
+tion-reversing maps have $[]\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 f\OT1/cmr/m
+/n/10.95 ) =
+ []
+
+
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[47]
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[48]
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[49]
+Overfull \hbox (4.2187pt too wide) detected at line 2919
+\OT1/cmr/m/n/10.95 0 [][]\OMS/cmsy/m/n/10.95 ! []\OT1/cmr/m/n/10.95 (\OML/cmm/m
+/it/10.95 G; H[]\OT1/cmr/m/n/10.95 ) [][]\OMS/cmsy/m/n/10.95 ! []\OT1/cmr/m/n/1
+0.95 (\OML/cmm/m/it/10.95 G; H[]\OT1/cmr/m/n/10.95 ) [][]\OMS/cmsy/m/n/10.95 ! 
+[]\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 G; H[]\OT1/cmr/m/n/10.95 ) [][]\OMS/c
+msy/m/n/10.95 ! \OML/cmm/m/it/10.95 G \OMS/cmsy/m/n/10.95 
+ \OML/cmm/m/it/10.95 H[] [][]\OMS/cmsy/m/n/10.95 ! \OML/cmm/m/it/10.95 G \OMS/c
+msy/m/n/10.95 
+ \OML/cmm/m/it/10.95 H[] [][]\OMS/cmsy/m/n/10.95 ! \OML/cmm/m/it/10.95 G \OMS/c
+msy/m/n/10.95 
+ \OML/cmm/m/it/10.95 H[] [][]\OMS/cmsy/m/n/10.95 ! \OT1/cmr/m/n/10.95 0;
+ []
+
+
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[50] (./coursesummary.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
@@ -1335,12 +1609,12 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 18787 strings out of 473832
- 419284 string characters out of 5729481
- 850785 words of memory out of 5000000
- 41496 multiletter control sequences out of 15000+600000
+ 19058 strings out of 473832
+ 426097 string characters out of 5729481
+ 862878 words of memory out of 5000000
+ 41764 multiletter control sequences out of 15000+600000
  568088 words of font info for 103 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 98i,17n,101p,781b,483s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 98i,17n,101p,781b,1044s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on coursesummary.pdf (37 pages).
+Output written on coursesummary.pdf (50 pages).
